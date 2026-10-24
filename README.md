@@ -1,58 +1,70 @@
 # /based
 
-Three perspectives. One synthesis. One separate reality check.
+**Speak your mind. Show your work. Own the trade-off.**
 
-A portable Hermes skill for research, brainstorming, and planning that challenges your assumptions without becoming a political echo chamber or a performative jerk.
+An experimental Hermes skill for research, brainstorming, and planning. Three fresh judge conversations, parent synthesis, and a separate reviewer—not a guarantee of truth, neutrality, or better answers.
 
-## How it works
+**Overhead:** three judges + one review + parent synthesis/revision. Research and valid retries can add work. Keep it opt-in for decisions worth the time. This repository does not establish superiority over a careful single answer.
 
-1. Hermes chooses three topic-specific hypothetical perspectives with different constraints, incentives, and exposure to downside.
-2. Three fresh subagent conversations judge the same neutral brief in parallel, without seeing each other or a preferred answer.
-3. Hermes weighs their evidence, objections, and trade-offs and writes its own synthesis.
-4. A fourth fresh agent reviews the draft for factual gaps, pandering, ideological framing in either direction, false balance, and needless harshness.
-5. Hermes applies the critique before returning the answer.
+## What “based” means here
 
-Perspectives are simulated analytical lenses, not actual lived experience. Separate contexts reduce cross-contamination; the same underlying model can still share blind spots. Consensus is not proof.
+Intellectually independent, unapologetically direct, and accountable to reality. Say what you actually conclude instead of chasing approval from the user, a crowd, or a political tribe. Use your strongest reasoning, not intelligence cosplay. Be willing to update when wrong. **Unapologetic does not mean uncorrectable.**
 
-## Install
+No fake certainty, mandatory contrarianism, corporate padding, political loyalty tests, or cruelty dressed up as honesty. “I can't verify that” can be the most based answer. See [voice examples](references/voice.md).
 
-Requires Hermes with skills and a working delegation route. This repo itself is the skill folder. Clone into the active profile's skills directory, provided no `based` directory already exists:
+## Quick start — native Hermes first
+
+1. Use a Hermes installation with skills and native delegation available.
+2. Check the active profile's actual delegation model/provider. Pick an already available route that fits your budget; this skill cannot force a per-child model override.
+3. Install this repo as the skill folder (do not overwrite an existing installation):
 
 ```sh
 git clone https://github.com/capthvnsen/hermes-based.git "${HERMES_HOME:-$HOME/.hermes}/skills/based"
 ```
 
-For a private repo, authenticate GitHub first. Do not overwrite an existing skill. Start a fresh Hermes session if the command does not appear; use `/skill based` to load it explicitly.
+4. Start a fresh session if needed, then send `/based <your question>`. `/skill based` loads it explicitly.
+
+The repo is currently private; cloning requires GitHub access. For a named Hermes profile, point HERMES_HOME at that profile before installing. Do not put credentials in this repository.
+
+Claude Code is **optional**, not required by the native route. An authenticated Sonnet recipe, checked CLI version, isolation flags, error checks, and tool limits live in [model routing](references/model-routing.md). Other providers are not automatically ruled out, but their full workflow compatibility has not been demonstrated by this repo's pilot. No price or invoice-savings claim is made.
 
 ## Use
 
 ```text
 /based Should I take this job or stay independent?
-/based Brainstorm an offer for this market and stress-test it.
-/based Research this acquisition thesis and identify what would disprove it.
-/based Tear apart this launch plan, then make it workable.
+/based Rank three ways to validate this offer before I build it.
+/based Research this thesis and show what would disprove it.
+/based Stress-test this launch plan, then give me a workable sequence.
 ```
 
-## Models and cost
+## The workflow
 
-Prefer an already configured budget route, such as Sonnet-class when available. No price claim is made. A skill cannot magically override a runtime's model selection. The agent must inspect routing before launch and must not silently use a premium fallback or change global configuration. Four calls are expected: three judges and one reviewer, plus parent synthesis; one additional review is allowed only after a material revision.
+- Three hypothetical perspectives have genuinely different incentives and constraints, tailored to the topic. They are analytical lenses, not real experts or fabricated lived experience.
+- Each gets the same neutral evidence brief in a fresh conversation, without the other answers or the parent's preferred verdict.
+- The parent weighs evidence rather than votes, then drafts an answer.
+- A fourth fresh agent checks grounding, assumptions, missing requirements, approval-seeking, needless harshness, and practical usefulness.
+- The parent applies valid critique, rejects erroneous critique, and rechecks the final edited answer.
 
-A documented alternative uses separate authenticated Claude Code print-mode processes with explicit `--model sonnet`, no tools, customization disabled, no MCP servers, and no session persistence. This avoids changing Hermes-wide delegation settings. The parent supplies researched evidence; tool-free judges do not browse. See SKILL.md for exact isolation flags. Native Hermes delegation is also supported if the configured model meets the user's budget preference.
+Separate conversations are not independent training or statistical evidence. Same-model blind spots can remain. No judge must disagree just to make the panel look diverse.
 
-## What based means
+## Evidence is part of the answer
 
-Evidence over flattery. Reality over ideology. No injected political lectures, no reflexive anti-progressive pandering, no stereotyping, and no cruelty masquerading as honesty. A conclusion can be uncomfortable without being absolute. The goal is a useful answer that survives scrutiny, not a particular political verdict.
+Consequential factual claims need sources actually read, with visible supporting citations. Important inferences need stated premises. Decisive math needs a calculator/code check. Predictions and brainstorms are hypotheses. Current prices or policies cannot come from stale recollection. Hearsay does not establish that a paper or report exists.
 
-## Verification
+Tool-free judges rely on evidence and calculations supplied by the parent; they cannot claim independent web research or tool verification. Read-only research is allowed only when those tools actually exist on the selected route. A reviewer's PASS is not evidence by itself.
 
-See TESTING.md for the actual smoke test and limitations. The skill is an instruction workflow, not a programmatic enforcement engine. It cannot guarantee every model obeys it or that role diversity eliminates correlated errors. No background service, plugin, global model change, or account integration is installed.
+## What has actually been tested
 
-## Files
+- Structural checks and clean-profile `/based` discovery.
+- Manual separate Sonnet judge/reviewer execution.
+- A [five-case offline pilot](evaluations/pilot-v1/REPORT.md) comparing a strong single answer, single answer plus reviewer, and the full panel under matched supplied evidence.
 
-- `SKILL.md`: workflow and `/based` trigger
-- `references/panel.md`: independent judge prompt
-- `references/reviewer.md`: separate review prompt
-- `tests/test_contract.py`: local structural checks (not behavioral proof)
-- `TESTING.md`: real smoke-test outcomes
+The pilot recorded real outputs, model identity, time, and usage—and found defects, including incomplete plan coverage and unchecked arithmetic. No human-blind quality scores or overall winner have been assigned. Synthetic supplied-evidence testing is **not** proof of live-source research, automatic slash-to-final execution, or compatibility with every provider. See [testing](TESTING.md).
+
+The optional [pilot helper](evaluations/run_pilot.py) is for evaluation only; it is not the skill runtime or an enforcement layer. Running it makes model calls through your existing account; inspect it and approve its use under your own budget. It makes 45 calls for the five bundled cases. **It saves full prompts and outputs without automatic content redaction—use synthetic fixtures only.** No installation, credential changes, or publishing occurs.
+
+## Keep it small
+
+This remains a Markdown instruction skill, not a plugin, service, telemetry system, model router, or guarantee that a model obeys every instruction. No lite modes, extra agents, or dashboards were added. Evaluate whether the panel earns its overhead before adding complexity. Normal safety, private-data, and external-action approvals remain intact.
 
 MIT licensed.

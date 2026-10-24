@@ -1,0 +1,12 @@
+{
+  "complete": true,
+  "cases": 5,
+  "calls": 45,
+  "returned_models": [
+    "claude-sonnet-5-5"
+  ],
+  "wall_seconds": 108.607,
+  "human_quality_scoring": "pending",
+  "scope": "Condensed offline supplied-evidence comparison; not automatic slash invocation, live-source verification, or proof of general superiority.",
+  "cost": "No invoice cost asserted; raw provider token usage is recorded per call. Baseline call is reused by reviewer-only condition; token totals must account for that reuse."
+}
