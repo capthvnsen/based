@@ -19,6 +19,9 @@ No fake certainty, mandatory contrarianism, corporate padding, political loyalty
 The optional stdlib-only helper copies only `SKILL.md`, the two runtime adapters, and the five supporting reference documents. It never copies evaluation artifacts, prompts/results, or arbitrary files, and it refuses an existing destination.
 
 ```sh
+git clone https://github.com/capthvnsen/hermes-based.git
+cd hermes-based
+
 # Default destinations:
 #   Hermes: ${HERMES_HOME:-$HOME/.hermes}/skills/based
 #   Claude Code: ${CLAUDE_CONFIG_DIR:-$HOME/.claude}/skills/based
@@ -31,7 +34,7 @@ python install.py --runtime hermes --dest "$PWD/.test-home/skills/based"
 
 Use `--dest` for a clean profile or test project. The helper does not edit global settings, credentials, or model routing. A documented manual alternative is to copy this repository's skill files into the same destination without overwriting an existing skill; do not copy `evaluations/` into a runtime skill directory.
 
-The Claude-oriented `disable-model-invocation: true` field is intentionally present in the portable frontmatter for manual-only invocation. Hermes accepts it as an extra skill field and still requires an explicit `/based` invocation. The Hermes metadata remains in the same frontmatter.
+Claude Code enforces manual `/based` invocation through `disable-model-invocation: true`. Hermes accepts the extra field; its opt-in behavior relies on these instructions and the user's explicit request, not a demonstrated harness-level toggle. The Hermes metadata remains in the same frontmatter.
 
 ## Native runtime paths
 
@@ -42,7 +45,9 @@ The shared core is runtime-neutral. Choose exactly one adapter before launching 
 
 Both adapters require capability and budget preflight. If the native tool, acceptable route, fresh-context isolation, or budget is missing or unverified, stop honestly. There is no fake one-agent fallback, mandatory Sonnet route, new-key setup, or silent premium substitution. Claude discovery/E2E validation should use a clean `CLAUDE_CONFIG_DIR` without `--safe-mode`, because `--safe-mode` disables skills and custom agents; restrict tools explicitly instead.
 
-No native runtime compatibility claim is made here until the parent exercises clean-context Hermes and Claude Code flows. A structural test or a successful manual component call would not prove full invocation-to-final behavior.
+Native invocation-to-final workflows were exercised on **Hermes 0.22.0+119.g0e427d7** and **Claude Code 2.1.293** on Linux, with real three-judge execution and a later fourth reviewer. See [native verification and preserved limitations](evaluations/native-v13/REPORT.md). This supports those tested routes, not every version, provider, platform or disabled-tool configuration.
+
+On the tested Hermes build, one-shot CLI usage is `hermes chat --skills based -q "Use the loaded based skill for ..."`; `-q "/based ..."` does not expand the slash command. The tested one-shot profile allowed four children; check child limits before running. Interactive Hermes and Claude Code use `/based ...`.
 
 ## Use
 
@@ -77,7 +82,14 @@ Tool-free judges rely on evidence and calculations supplied by the parent; they 
 - v1.3 safe-install tests covering custom paths with spaces, custom runtime homes, runtime validation, existing-destination refusal, allowlisted references/adapters, evaluation-artifact exclusion, and frontmatter fields.
 - The optional evaluation helper remains evaluation-only and is not a runtime dependency.
 
-Native Hermes discovery, native Claude Code discovery, full invocation-to-final execution, and comparative answer quality for v1.3 remain pending the parent’s clean-context tests. Do not report those gates as successful from this repository alone. Historical v1.2 evaluation artifacts are retained as evidence of prior component work, not as v1.3 runtime compatibility proof.
+- Two observed native runs per runtime, with native completion records confirming all four workers. Final outputs in the bounded synthetic test fit the requested length; the initial Claude run did not, and that failure is preserved.
+- 27 structural/helper/installer tests, including an interrupted-install rollback regression.
+
+This is not a comparative accuracy or adoption study. Historical v1.2 evaluation artifacts remain prior component evidence, not v1.3 compatibility proof. Raw account/session traces are kept private; [public receipts](evaluations/native-v13/receipts.json) contain sanitized observations and synthetic answers.
+
+## A small real example
+
+In the synthetic test, each sale earned $10 and cost $14 in variable expenses. Both native workflows rejected making that profitable through volume alone. The final Claude answer put it plainly: **“Funding buys runway, not profitability.”** The full example and initial defects are in the native verification report; this is a demonstration, not proof of superiority.
 
 ## Keep it small
 

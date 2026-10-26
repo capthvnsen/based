@@ -11,6 +11,12 @@ Use this adapter only in a Hermes session with the native `delegate_task` tool a
 
 Hermes accepts the Claude-oriented `disable-model-invocation: true` frontmatter field as an extra skill field; it does not make this adapter auto-run. Keep `/based` explicitly invoked by the user.
 
+### CLI invocation and child limits
+
+On the tested build, `hermes chat -q "/based ..."` does not expand the slash command. Interactive `/based ...` is supported; for one-shot CLI use `hermes chat --skills based -q "Use the loaded based skill for ..."`. The parent needs read access to the adapter and supporting references as well as delegation.
+
+Inspect one-shot child limits before starting. On the tested build `delegation.oneshot_max_children` defaults to two; the full workflow requires allowance for at least four children, including the later reviewer. A clean test profile can explicitly set `oneshot_max_children: 4`; do not silently change a user's profile or global limits. Report a missing allowance as a preflight blocker and ask for the appropriate supported configuration. A single depth limit should still prevent recursive judge panels.
+
 ## Three judges
 
 Send exactly one parallel batch with exactly three task objects. The native call shape is:

@@ -1,42 +1,38 @@
 # Verification by gate
 
-## Structural and safe-install tests
+## Structural, helper and safe-install suite
 
-Run the complete stdlib suite from the repository root:
+From the repository root:
 
 ```sh
 python -m unittest discover -s tests -v
-python -m unittest discover -s tests -q
 ```
 
-The tests validate metadata, links, supporting documents, evidence-fixture shape, checked fixture arithmetic, tone/reviewer contracts, runtime-adapter separation, and the optional installer. Installer coverage includes custom paths with spaces, `HERMES_HOME`/`CLAUDE_CONFIG_DIR` defaults, explicit destinations, runtime validation, refusal to overwrite, allowlisted adapters/references, evaluation-artifact exclusion, and the manual-only/metadata frontmatter fields. These tests do not prove that an LLM follows the instructions.
+The current suite passes **27 tests**. Coverage includes metadata, relative links, supporting documents, supplied-evidence shape, fixture arithmetic, tone/reviewer rules, runtime-adapter separation and installer behavior. Installer cases exercise custom paths with spaces, custom runtime homes, runtime validation, explicit destinations, existing-destination refusal, allowlisted payloads, evaluation exclusion and interrupted-install rollback. The new rollback regression was observed failing before the fix.
 
-`python install.py --runtime ...` is optional. It uses only the Python standard library, has no credential or model dependency, and refuses an existing destination. Use a temporary/custom destination for testing; never point it at a real profile unless that is the user's explicit action.
+These are structural/helper/installer tests, not proof an LLM follows instructions. They require no model calls or credentials.
 
-## Hermes frontmatter parser check
+## Native v1.3 execution
 
-The v1.3 frontmatter includes Claude Code's `disable-model-invocation: true` field. A local Hermes parser check confirms the field is parsed without rejection; the parent’s native clean-context test still must verify discovery and activation behavior. This is not a native panel run.
+See the [native verification report](evaluations/native-v13/REPORT.md) and [sanitized receipts](evaluations/native-v13/receipts.json).
 
-## Native runtime gates pending parent exercise
+- Hermes **0.22.0+119.g0e427d7**, configured `gpt-5.6-luna` on the existing accepted `openai-codex` route: clean test profile home, installed skill, preloaded `--skills based`, native three-task delegation followed by a separate reviewer task. Full manifests confirmed four completed workers and correct stage order.
+- Claude Code **2.1.293**, accepted Sonnet route with `claude-sonnet-5-5` reported: clean config and project skill, direct `/based` invocation, four native `Agent` calls. The first three were parallel in one assistant message; native completion notifications confirmed all judges returned before review and review finished before final output.
 
-These exact native paths are proposed for the parent to exercise in clean contexts; this repository does not claim they have succeeded:
+Two actual invocations were inspected per runtime. These are full native workflows, unlike the earlier manually orchestrated CLI component tests. Final synthetic outputs were within their requested word limit. Initial Claude length/provenance defects are retained; the follow-up prompt also changed, so no controlled improvement claim is made.
 
-1. **Hermes:** in a fresh session with the native delegation tool and an accepted configured delegation route, preflight the actual schema, then issue one native batch with exactly three task objects:
+The exact final runtime payloads match repository hashes. Hermes parsed the additional Claude frontmatter field and discovered `/based` in an isolated skills directory. Claude manual invocation loaded the skill in a fresh project. No global configuration, credentials, or unrelated profile settings were changed; temporary validation profiles used supported authentication fallback without copying auth files. Raw account/session metadata stays outside Git.
 
-   ```text
-   delegate_task(tasks=[
-     {"goal": "Judge through lens A using the shared panel template", "context": "Neutral brief + lens A"},
-     {"goal": "Judge through lens B using the shared panel template", "context": "Neutral brief + lens B"},
-     {"goal": "Judge through lens C using the shared panel template", "context": "Neutral brief + lens C"}
-   ])
-   ```
+## Installation and invocation limits
 
-   Keep the same neutral facts in all three contexts, do not pass a pretend per-child model/provider override, collect all three real results, synthesize in the parent, then issue one separate native reviewer task with the neutral brief, evidence, three outputs, and draft.
+The optional `install.py` uses only the standard library, copies the eight allowlisted instruction files, and refuses any existing destination. It does not install another runtime, set up credentials, select a model, edit global settings or copy evaluation traces. Test fresh or custom destinations rather than overwriting real skill installations.
 
-2. **Claude Code:** from the MAIN session, explicitly invoke `/based` in a clean `CLAUDE_CONFIG_DIR` with the skill discoverable in the test project's `.claude/skills/based`. Confirm the observed native `Agent` schema (or supported `Task` equivalent), then launch three fresh isolated subagents in one parallel turn with the shared neutral brief plus one lens each; synthesize in MAIN; launch a fourth fresh reviewer from MAIN. Do not use `--safe-mode` for discovery/E2E because it disables skills/custom agents. Restrict tools to the least required read-only set and use only an explicitly accepted route/model.
+On the tested Hermes build, one-shot `-q "/based ..."` does not expand the slash command; use `--skills based` with an explicit request. One-shot child limits must allow a three-judge batch and a later reviewer; the clean test profile explicitly used `oneshot_max_children: 4`. Normal interactive invocation remains `/based ...`.
 
-Record capability preflight, actual model identity when exposed, failures, and whether all four stages completed. A clean install proves discovery only; a component call proves neither full invocation-to-final behavior nor quality improvement. Do not report a successful native workflow until the parent has exercised it.
+Claude's manual-only frontmatter requires explicit `/based`; a natural-language mention alone does not make that disabled-auto-invocation skill discoverable. Do not use `--safe-mode` for skill discovery tests because it disables skills. All native paths require capability and accepted-budget preflight, and must report missing tools or limits honestly.
 
-## Historical evaluation artifacts
+## Historical artifacts and remaining limits
 
-The optional `evaluations/run_pilot.py` helper and retained v1.2 reports are evaluation-only. They may make model calls through a separately authenticated account and save prompts/results; synthetic fixtures are required. They are not imported by the installer or runtime adapters, and they are not v1.3 compatibility evidence. No model calls are required for the repository test suite.
+The [older five-case pilot](evaluations/pilot-v1/REPORT.md) and [v1.2 voice checks](evaluations/tone-v12/REPORT.md) remain limited historical evidence. `evaluations/run_pilot.py` is an optional account-consuming evaluation tool, not a skill runtime dependency. It saves full prompts/results and must receive only synthetic data.
+
+No test here establishes compatibility with every version/provider/platform, reliable obedience on every request, live-source research quality, statistical superiority, bias elimination, human preference or adoption gains. Same-model blind spots and fallible reviewers remain. This repository is an experimental instruction skill, not an enforcement engine.

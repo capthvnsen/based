@@ -48,6 +48,14 @@ class StructuralChecks(unittest.TestCase):
         self.assertIn("MAIN", claude)
         self.assertIn("Do not use `--safe-mode`", claude)
 
+    def test_adapter_invocation_limits_are_documented(self):
+        hermes = (ROOT / "adapters/hermes.md").read_text()
+        claude = (ROOT / "adapters/claude-code.md").read_text()
+        self.assertIn("oneshot_max_children", hermes)
+        self.assertIn("--skills based", hermes)
+        self.assertIn("does not expand", hermes)
+        self.assertIn("manual `/based`", claude)
+
     def test_shared_core_has_no_runtime_orchestration_calls(self):
         skill = (ROOT / "SKILL.md").read_text()
         self.assertNotIn("delegate_task(", skill)

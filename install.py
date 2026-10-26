@@ -65,8 +65,9 @@ def install(runtime: str, destination: Union[Path, str]) -> Path:
         staging.rmdir()
     except Exception:
         shutil.rmtree(staging, ignore_errors=True)
-        if destination_created and destination.is_dir() and not any(destination.iterdir()):
-            destination.rmdir()
+        if destination_created:
+            # This directory was created by this invocation, never a pre-existing install.
+            shutil.rmtree(destination, ignore_errors=True)
         raise
     return destination
 

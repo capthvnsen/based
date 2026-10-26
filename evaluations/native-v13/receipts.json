@@ -1,0 +1,117 @@
+{
+  "synthetic_only": true,
+  "native_invocations": 4,
+  "worker_launches": 16,
+  "runs": [
+    {
+      "runtime": "Claude Code",
+      "version": "2.1.293",
+      "native_tool": "Agent",
+      "judge_count": 3,
+      "reviewer_count": 1,
+      "parallel_judges": true,
+      "judge_completions_before_reviewer": true,
+      "all_native_workers_completed": true,
+      "reported_models": [
+        "claude-sonnet-5-5"
+      ],
+      "invocation": "/based <synthetic question>, clean CLAUDE_CONFIG_DIR and project skill",
+      "exit_success": true,
+      "phase": "initial",
+      "trace_sha256": "53b5a7f86de693bc53ec3ec5738c96e2eba25564d4b90639f3fa1ed384d71b37",
+      "final_words": 193,
+      "word_limit": 180,
+      "within_word_limit": false,
+      "final_answer": "**Verdict: No. Volume alone makes this lose faster, not profit.**\n\nSupplied facts: $10 earned and $14 variable cost per sale, no other revenue, no expected cost decline. Supplied checked arithmetic: \u2212$4 contribution per sale before fixed costs. At constant price and cost, no volume breaks even, and fixed costs only add to the loss. Unknown: fixed costs, funding, price flexibility.\n\n**What would change it** (each abandons \"volume alone\"):\n- A price well above $14, enough to cover fixed costs.\n- Variable cost below $10. If volume really lowered unit cost, this verdict would reverse.\n- Recurring revenue above $4 per buyer, plus fixed costs.\n- A deliberately capped, funded loss with an end date.\n\n**Next test:** The founder sells a small batch, capped at an affordable loss, at illustrative prices such as $16 and $18. For scale, 30 units at \u2212$4 is $120, derived from the supplied figure. Before starting, set a sell-through target and window. Pass: a price above $14 hits the target. Stop: none does, so redesign cost or the model instead of scaling.\n\n*Process: three tool-free Sonnet judges and a separate reviewer. Same model, so shared blind spots are possible.*"
+    },
+    {
+      "runtime": "Hermes",
+      "version": "0.22.0+119.g0e427d7",
+      "native_tool": "delegate_task",
+      "judge_count": 3,
+      "reviewer_count": 1,
+      "parallel_judges": true,
+      "judge_completions_before_reviewer": true,
+      "all_native_workers_completed": true,
+      "manifest_models": [
+        "gpt-5.6-luna"
+      ],
+      "invocation": "hermes chat --skills based --toolsets delegation,file --query-file <synthetic brief>, fresh profile home",
+      "exit_success": true,
+      "phase": "initial",
+      "trace_sha256": "227d1afda1bc7842531c808938b2cfe349bc409862f4c285942d3f1f6e9d37b2",
+      "final_words": 151,
+      "word_limit": 180,
+      "within_word_limit": true,
+      "final_answer": "Verdict: Reject the volume-only strategy. Each sale contributes -$4 before fixed costs, so more sales multiply the loss rather than create profitability. Fixed costs and demand are unknown, but neither changes the stated negative unit contribution.\n\nThe verdict would change if the business demonstrated positive contribution per sale through a higher accepted price, lower variable cost, or additional revenue tied to each sale. Volume could then help cover fixed costs; volume alone cannot.\n\nNext test: run a pricing test with a sample cap set in advance. Offer the tracker at a price intended to produce positive contribution, record customer acceptance and actual variable cost per sale, and calculate observed revenue minus variable cost for each sale. Stop at the cap if contribution is not positive; do not scale based on unit volume alone.\n\nThis conclusion reflects three independent judges plus a separate reviewer, using only the supplied facts and checked arithmetic."
+    },
+    {
+      "runtime": "Claude Code",
+      "version": "2.1.293",
+      "native_tool": "Agent",
+      "judge_count": 3,
+      "reviewer_count": 1,
+      "parallel_judges": true,
+      "judge_completions_before_reviewer": true,
+      "all_native_workers_completed": true,
+      "reported_models": [
+        "claude-sonnet-5-5"
+      ],
+      "invocation": "/based <synthetic question>, clean CLAUDE_CONFIG_DIR and project skill",
+      "exit_success": true,
+      "phase": "final",
+      "trace_sha256": "7771511ee9d47784a1ddc8cae40fe07670178cd8c0b1dc25992f86ff1998b471",
+      "final_words": 168,
+      "word_limit": 180,
+      "within_word_limit": true,
+      "final_answer": "**Verdict: No.** As stated, with price, cost and mix unchanged, volume can't make this profitable. Supplied parent-checked result: 10 \u2212 14 = \u22124 contribution per sale before fixed costs. More sales enlarge the loss, and fixed costs add to it. Funding buys runway, not profitability. Confidence is high because the verdict follows from the premises.\n\n**What changes it:** a different strategy, not more volume. That could be a price customers accept that lifts contribution above zero, a per-sale cost cut (ruled out by the premise), or a separate revenue stream. \"Lose now, monetize later\" is a different thesis and needs evidence of positive contribution. Even then, fixed costs remain.\n\n**One test:** Offer a higher price or a repackaged tier to new sign-ups only, with no added acquisition spend. Pass: some variant shows contribution above zero with retention you'd accept. Fail: stop scaling and redesign.\n\n*Process: three tool-free same-model Sonnet judges in fresh contexts agreed; shared blind spots are possible. A separate tool-free reviewer requested edits, which I applied.*",
+      "tested_payload_sha256": {
+        "SKILL.md": "113933b8f202ba3d2056eb24b92a7ca7fdc37310f2310f2d1f444cd5ee6f8da3",
+        "adapters/claude-code.md": "9f8415a938acc3beb449315eb6289192ca27f11e0c46c8cc51446998406c0a2b",
+        "adapters/hermes.md": "1f1c43f60c0416f89f01b893f25d2dd36d792213868c8ccff34958318994b844",
+        "references/evaluation.md": "95c356da0781572a4d7d53b6fa2a27e45550edc9c1258f54c88950640224673b",
+        "references/model-routing.md": "e454b9b5f81c0bdee7085c94f1d962d51d64483d0a8f6bb4dcc40678322f037f",
+        "references/panel.md": "8d8ec27419ad4b4ac67eb16b930080125562a5e762a35a6352d60c85c804b7f7",
+        "references/reviewer.md": "44eeba8c119dee5e5a12258274a79f7e1c76b3068e0cee937522b2acc37034d6",
+        "references/voice.md": "0c4664ddaa94659c56b9a45ca48ab6f5d3a19d3e2617bc7c8f2eebe57f9647dc"
+      }
+    },
+    {
+      "runtime": "Hermes",
+      "version": "0.22.0+119.g0e427d7",
+      "native_tool": "delegate_task",
+      "judge_count": 3,
+      "reviewer_count": 1,
+      "parallel_judges": true,
+      "judge_completions_before_reviewer": true,
+      "all_native_workers_completed": true,
+      "manifest_models": [
+        "gpt-5.6-luna"
+      ],
+      "invocation": "hermes chat --skills based --toolsets delegation,file --query-file <synthetic brief>, fresh profile home",
+      "exit_success": true,
+      "phase": "final",
+      "trace_sha256": "4ae51228d1c4eb88e4e0e97f4efc3c3d051dbc25c2bd5fa6a40d5160fcebbab0",
+      "final_words": 126,
+      "word_limit": 180,
+      "within_word_limit": true,
+      "final_answer": "Verdict: Reject profitability through volume alone. Each sale contributes -$4 before fixed costs, so more sales increase the loss. Funding that loss may extend runway, but it does not make volume profitable.\n\nThe verdict changes only if the economics change: validated higher realized price, lower variable cost, or additional revenue tied to each sale must make incremental contribution positive. That is a different strategy from volume alone.\n\nNext test: run one bounded paid-offer test with a predeclared loss ceiling and stop rule. Measure realized revenue and variable cost per sale, and judge the result by whether contribution moves toward positive\u2014not by signups, gross sales, or financing.\n\nProcess: three tool-free judges and a separate reviewer assessed the supplied checked arithmetic; no external claims or actions were used.",
+      "tested_payload_sha256": {
+        "SKILL.md": "113933b8f202ba3d2056eb24b92a7ca7fdc37310f2310f2d1f444cd5ee6f8da3",
+        "adapters/claude-code.md": "9f8415a938acc3beb449315eb6289192ca27f11e0c46c8cc51446998406c0a2b",
+        "adapters/hermes.md": "1f1c43f60c0416f89f01b893f25d2dd36d792213868c8ccff34958318994b844",
+        "references/evaluation.md": "95c356da0781572a4d7d53b6fa2a27e45550edc9c1258f54c88950640224673b",
+        "references/model-routing.md": "e454b9b5f81c0bdee7085c94f1d962d51d64483d0a8f6bb4dcc40678322f037f",
+        "references/panel.md": "8d8ec27419ad4b4ac67eb16b930080125562a5e762a35a6352d60c85c804b7f7",
+        "references/reviewer.md": "44eeba8c119dee5e5a12258274a79f7e1c76b3068e0cee937522b2acc37034d6",
+        "references/voice.md": "0c4664ddaa94659c56b9a45ca48ab6f5d3a19d3e2617bc7c8f2eebe57f9647dc"
+      }
+    }
+  ],
+  "limits": [
+    "Two observed runs per runtime on Linux, not all versions/providers/platforms",
+    "Initial Claude run exceeded 180 words and weakened provenance; preserved as a defect",
+    "Final runs used refined synthetic question after narrow instruction/doc corrections",
+    "No comparative accuracy or adoption claim; raw account/session traces kept private outside Git"
+  ]
+}

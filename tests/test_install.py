@@ -92,6 +92,26 @@ class InstallDestinationTests(unittest.TestCase):
             self.assertTrue(destination.is_dir())
             self.assertEqual(list(destination.iterdir()), [])
 
+    def test_failed_move_removes_only_new_partial_install(self):
+        import install
+
+        with tempfile.TemporaryDirectory(prefix="based-rollback-") as parent:
+            destination = Path(parent) / "based"
+            original_move = install.shutil.move
+            calls = []
+
+            def fail_after_first_move(source, target):
+                calls.append(source)
+                if len(calls) == 2:
+                    raise OSError("synthetic interrupted install")
+                return original_move(source, target)
+
+            with patch.object(install.shutil, "move", side_effect=fail_after_first_move):
+                with self.assertRaisesRegex(OSError, "synthetic interrupted install"):
+                    install.install("hermes", destination)
+            self.assertFalse(destination.exists())
+            self.assertEqual(list(Path(parent).iterdir()), [])
+
     def test_install_copies_skill_and_references_to_spaced_destination(self):
         import install
 

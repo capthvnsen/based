@@ -21,6 +21,6 @@ The MAIN session synthesizes the three results. Only after drafting, launch a fo
 
 ## Limits
 
-The skill's `disable-model-invocation: true` frontmatter keeps Claude from auto-invoking `/based`; the user must invoke it. Claude Code still accepts a direct `/based ...` invocation. This field is intentionally present in the portable `SKILL.md`; Hermes treats it as an extra field for this skill.
+The skill's `disable-model-invocation: true` frontmatter keeps Claude from auto-invoking `/based`; use manual `/based` invocation in Claude Code. A natural-language mention alone does not make this manually invoked skill discoverable. After the user has loaded it, substantive follow-ups can retain the agreed scope. This field is intentionally present in the portable `SKILL.md`; Hermes treats it as an extra field for this skill.
 
 This adapter documents the required native shape and isolation, not a verified compatibility claim for every Claude Code release. Record the observed tool name/schema, route, model identity when exposed, failures, and whether the complete four-agent workflow actually ran. Never claim a successful native run from this repository's structural tests.
