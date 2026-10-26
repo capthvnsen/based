@@ -21,8 +21,8 @@ No fake certainty, mandatory contrarianism, corporate padding, political loyalty
 The optional stdlib-only helper copies only `SKILL.md`, the two runtime adapters, and the five supporting reference documents. It never copies evaluation artifacts, prompts/results, or arbitrary files, and it refuses an existing destination.
 
 ```sh
-git clone https://github.com/capthvnsen/hermes-based.git
-cd hermes-based
+git clone https://github.com/capthvnsen/based.git
+cd based
 
 # Default destinations:
 #   Hermes: ${HERMES_HOME:-$HOME/.hermes}/skills/based
