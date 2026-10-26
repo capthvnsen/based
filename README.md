@@ -26,7 +26,7 @@ git clone https://github.com/capthvnsen/hermes-based.git "${HERMES_HOME:-$HOME/.
 
 4. Start a fresh session if needed, then send `/based <your question>`. `/skill based` loads it explicitly.
 
-The repo is currently private; cloning requires GitHub access. For a named Hermes profile, point HERMES_HOME at that profile before installing. Do not put credentials in this repository.
+For a named Hermes profile, point HERMES_HOME at that profile before installing. Do not put credentials in this repository.
 
 Claude Code is **optional**, not required by the native route. An authenticated Sonnet recipe, checked CLI version, isolation flags, error checks, and tool limits live in [model routing](references/model-routing.md). Other providers are not automatically ruled out, but their full workflow compatibility has not been demonstrated by this repo's pilot. No price or invoice-savings claim is made.
 
