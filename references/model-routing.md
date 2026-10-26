@@ -1,31 +1,15 @@
-# Model routing for independent deliberation
+# Runtime-neutral routing and capability contract
 
-## Choose the route before launching
+Choose the runtime before launching. The shared skill requires exactly three independent judges, parent synthesis, and a separate fourth review; the runtime adapter supplies the native calls.
 
-1. Inspect the actual delegation tool schema and the active profile's model/provider settings without displaying secrets. Use native Hermes delegation when its configured route satisfies the requested budget; do not infer per-child model controls that the tool does not expose.
-2. If using a separately authenticated CLI, inspect its current help and authentication status. Explicitly select the requested model. A prompt saying 'use Sonnet' is not model selection. Do not change global routing or install a provider merely to run the panel without approval.
-3. Disclose the actual route and avoid price assertions without a current source. Record returned model identities; an alias can resolve to a different version later. Never silently substitute a premium fallback.
-4. Keep the three judge contexts separate and start the reviewer only after synthesis. Bound execution time and requested output size. Treat nonzero exit, timeout, error status, or missing output as a failed agent rather than a completed review.
+1. Inspect the selected runtime's actual orchestration schema and the active model/provider route without displaying secrets.
+2. Confirm the route is explicitly accepted or already verified as acceptable for the task's budget. Do not infer a model override from prompt text, and do not assert current pricing without a current source.
+3. Confirm the runtime can provide four bounded fresh-agent calls. If the native tool, model route, budget, or isolation capability is missing or unverified, fail honestly. Never substitute one parent answer, another CLI, new credentials, or a silent premium fallback.
+4. State whether agents are tool-free or have bounded read-only tools. Tool-free agents reason only from the evidence and checked calculations supplied by the parent; they must not claim to browse, inspect sources, or verify arithmetic independently.
+5. Treat nonzero exits, timeouts, error statuses, missing outputs, and unsupported schemas as failed stages. Preserve incomplete status rather than manufacturing a result.
 
-## Claude Code option
-
-The listed flags were checked against the installed Claude Code 2.1.293 help on October 24, 2026 (UTC). This is a tested recipe, not a minimum-version or all-version compatibility claim. Inspect local help before use; no Claude subscription is required for the native Hermes route.
-
-When the installed CLI supports these flags and is already authenticated, use a separate process and a fresh empty working directory for each judge and reviewer:
-
-```sh
-claude -p --model sonnet \
-  --tools "" --safe-mode \
-  --strict-mcp-config --mcp-config '{"mcpServers":{}}' \
-  --no-session-persistence --output-format json
-```
-
-Supply the complete neutral brief and that agent's prompt through stdin. Do not use resume/continue or share prior transcripts between judges. Do not use `--bare` when relying on subscription OAuth: that mode skips that authentication path. Do not add permission-bypass flags.
-
-Parse exit status, `is_error`, result text, and returned model usage; retain a minimal local execution record without credentials. Separate empty working directories, no tools, disabled customizations, and an empty MCP configuration reduce unintended context exposure; they are not an OS-level sandbox or a guarantee against provider retention. Only send task-relevant material.
-
-Tool-free judges and reviewers cannot browse, calculate through tools, or independently inspect files. The parent must supply evidence, perform consequential source and arithmetic checks, and distinguish its observations from reviewer-verified facts. If read-only research tools are enabled on a different route, give all judges the same starting brief and apply the evidence contract to any additional sources they introduce.
+Use [the Hermes adapter](../adapters/hermes.md) for native `delegate_task` and [the Claude Code adapter](../adapters/claude-code.md) for native `Agent`/supported `Task`. These are separate routes; neither depends on the other CLI.
 
 ## Verification scope
 
-Report separately: skill discovery, model connectivity, component execution, full invocation-to-final workflow, and answer-quality comparison. A clean clone exposing `/based` does not prove the entire workflow runs; a successful manual four-process test does not prove every user's model routing or slash invocation. Never collapse these gates into 'fully tested'.
+Report these gates separately: skill discovery, capability/schema preflight, model connectivity and accepted route, individual component execution, full three-judge → parent-synthesis → fourth-review behavior, and answer-quality comparison. A clean install proves discovery only. Structural tests prove document invariants only. A successful component run does not prove full invocation-to-final behavior or general quality improvement.

@@ -1,39 +1,42 @@
 # Verification by gate
 
-## Structural lint
+## Structural and safe-install tests
 
-`python -m unittest discover -s tests -v` validates metadata, supporting links, evaluation-fixture structure, and checked fixture arithmetic. These tests do not prove an LLM follows instructions. See the individual test names for exact coverage.
-
-## Install and command discovery
-
-A clean clone into an isolated HERMES_HOME skills directory exposed `/based` through the installed Hermes command scanner. This proves discovery on the tested install, not execution on every runtime/provider.
-
-## Model and workflow components
-
-The initial smoke test used three separate Sonnet conversations on a fictional founder question, followed by parent synthesis and a fourth fresh Sonnet reviewer. The reviewer returned REVISE; that was not a fully passing quality benchmark. Returned model usage identified claude-sonnet-5-5.
-
-## Comparative pilot
-
-The [five-case offline pilot](evaluations/pilot-v1/REPORT.md) completed 45 real calls with three conditions. It records real traces, token usage, and elapsed time, and includes regressions rather than only wins. The report separates unblinded author observations from pending human scores. It does not test live-source retrieval, statistical superiority, or full automated slash-to-final execution. Final guard improvements were made after this pilot; no wholesale rerun is claimed.
-
-## Targeted final-reviewer sensitivity checks
-
-After the pilot-driven amendments, two new tool-free Sonnet reviewer calls received deliberately flawed synthetic drafts. Both returned REVISE: one identified stale pricing, hearsay upgraded into a report, and a false tool-verification claim; the other identified unproven demand and missing timeline, owner, budget, and stop conditions. See the [evidence check](evaluations/targeted-v11/reject-false-evidence.json) and [plan check](evaluations/targeted-v11/preserve-plan-constraints.json). These are limited component checks, not a rerun of the comparative pilot or proof that every revised answer will satisfy the reviewer. There is no clean-draft control in these two checks, so false-REVISE behavior remains untested. Reviewer suggestions themselves still require parent scrutiny.
-
-## v1.2 tone spot checks
-
-The [v1.2 voice report](evaluations/tone-v12/REPORT.md) records 13 actual Sonnet component calls: seven initial new-voice fixtures, two old-voice controls, two reviewer controls, and two follow-ups after a narrow amendment. The clean reviewer control returned PASS and the insulting, unsupported draft returned REVISE. Initial defects and fallible reviewer suggestions are preserved, not hidden. The author inspection was unblinded; no representative preference, adoption improvement, automatic full-panel compliance, or rerun of the earlier comparative pilot is claimed. Current structural tests check the new rules' presence and fixture math, not LLM compliance.
-
-## Reproduce
-
-Requires Python standard library and an existing authenticated Claude Code supporting the flags in [model routing](references/model-routing.md). The optional helper is not required to install/use the skill:
+Run the complete stdlib suite from the repository root:
 
 ```sh
-python evaluations/run_pilot.py --output evaluations/my-new-run
+python -m unittest discover -s tests -v
+python -m unittest discover -s tests -q
 ```
 
-Inspect prompts and approve account usage first. Five cases make 45 model calls; no model price is assumed. Use a new output path: existing results are not overwritten. On any model failure the run is marked incomplete; no silent premium fallback or fabricated result is allowed. Judge working directories are separate; only synthetic fixture content is supplied. The default model alias can resolve differently later; actual returned identities are recorded.
+The tests validate metadata, links, supporting documents, evidence-fixture shape, checked fixture arithmetic, tone/reviewer contracts, runtime-adapter separation, and the optional installer. Installer coverage includes custom paths with spaces, `HERMES_HOME`/`CLAUDE_CONFIG_DIR` defaults, explicit destinations, runtime validation, refusal to overwrite, allowlisted adapters/references, evaluation-artifact exclusion, and the manual-only/metadata frontmatter fields. These tests do not prove that an LLM follows the instructions.
 
-## Remaining limits
+`python install.py --runtime ...` is optional. It uses only the Python standard library, has no credential or model dependency, and refuses an existing destination. Use a temporary/custom destination for testing; never point it at a real profile unless that is the user's explicit action.
 
-No human-blind scores yet, no general quality guarantee, no live-web research evaluation, no demonstrated non-Claude full workflow, and no programmatic enforcement of the Markdown skill. Context isolation is not an OS sandbox. Do not describe the skill as fully tested or unbiased.
+## Hermes frontmatter parser check
+
+The v1.3 frontmatter includes Claude Code's `disable-model-invocation: true` field. A local Hermes parser check confirms the field is parsed without rejection; the parent’s native clean-context test still must verify discovery and activation behavior. This is not a native panel run.
+
+## Native runtime gates pending parent exercise
+
+These exact native paths are proposed for the parent to exercise in clean contexts; this repository does not claim they have succeeded:
+
+1. **Hermes:** in a fresh session with the native delegation tool and an accepted configured delegation route, preflight the actual schema, then issue one native batch with exactly three task objects:
+
+   ```text
+   delegate_task(tasks=[
+     {"goal": "Judge through lens A using the shared panel template", "context": "Neutral brief + lens A"},
+     {"goal": "Judge through lens B using the shared panel template", "context": "Neutral brief + lens B"},
+     {"goal": "Judge through lens C using the shared panel template", "context": "Neutral brief + lens C"}
+   ])
+   ```
+
+   Keep the same neutral facts in all three contexts, do not pass a pretend per-child model/provider override, collect all three real results, synthesize in the parent, then issue one separate native reviewer task with the neutral brief, evidence, three outputs, and draft.
+
+2. **Claude Code:** from the MAIN session, explicitly invoke `/based` in a clean `CLAUDE_CONFIG_DIR` with the skill discoverable in the test project's `.claude/skills/based`. Confirm the observed native `Agent` schema (or supported `Task` equivalent), then launch three fresh isolated subagents in one parallel turn with the shared neutral brief plus one lens each; synthesize in MAIN; launch a fourth fresh reviewer from MAIN. Do not use `--safe-mode` for discovery/E2E because it disables skills/custom agents. Restrict tools to the least required read-only set and use only an explicitly accepted route/model.
+
+Record capability preflight, actual model identity when exposed, failures, and whether all four stages completed. A clean install proves discovery only; a component call proves neither full invocation-to-final behavior nor quality improvement. Do not report a successful native workflow until the parent has exercised it.
+
+## Historical evaluation artifacts
+
+The optional `evaluations/run_pilot.py` helper and retained v1.2 reports are evaluation-only. They may make model calls through a separately authenticated account and save prompts/results; synthetic fixtures are required. They are not imported by the installer or runtime adapters, and they are not v1.3 compatibility evidence. No model calls are required for the repository test suite.

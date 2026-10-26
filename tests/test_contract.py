@@ -27,13 +27,34 @@ class StructuralChecks(unittest.TestCase):
         self.assertIn("name: based", header)
         description = re.search(r'description: "([^"\n]+)"', header).group(1)
         self.assertLessEqual(len(description), 60)
-        self.assertIn("version: 1.2.0", header)
+        self.assertIn("version: 1.3.0", header)
+        self.assertIn("disable-model-invocation: true", header)
 
     def test_local_links(self):
         for path in ROOT.rglob("*.md"):
             for target in re.findall(r"\]\(([^)]+)\)", path.read_text()):
                 if not target.startswith(("https:", "http:", "#", "mailto:")):
                     self.assertTrue((path.parent / target.split("#")[0]).is_file(), (path, target))
+
+    def test_runtime_adapters_exist_and_are_linked(self):
+        skill = (ROOT / "SKILL.md").read_text()
+        hermes = (ROOT / "adapters/hermes.md").read_text()
+        claude = (ROOT / "adapters/claude-code.md").read_text()
+        self.assertIn("adapters/hermes.md", skill)
+        self.assertIn("adapters/claude-code.md", skill)
+        self.assertIn("delegate_task(tasks=[", hermes)
+        self.assertIn("Agent", claude)
+        self.assertIn("Task", claude)
+        self.assertIn("MAIN", claude)
+        self.assertIn("Do not use `--safe-mode`", claude)
+
+    def test_shared_core_has_no_runtime_orchestration_calls(self):
+        skill = (ROOT / "SKILL.md").read_text()
+        self.assertNotIn("delegate_task(", skill)
+        self.assertNotIn("claude -p", skill)
+        self.assertIn("exactly THREE", skill)
+        self.assertIn("FOURTH, separate reviewer", skill)
+        self.assertIn("Synthesize by evidence", skill)
 
     def test_supporting_documents_exist(self):
         for name in ["panel", "reviewer", "voice", "model-routing", "evaluation"]:

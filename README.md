@@ -2,7 +2,7 @@
 
 **Speak your mind. Show your work. Own the trade-off.**
 
-An experimental Hermes skill for research, brainstorming, and planning. Three fresh judge conversations, parent synthesis, and a separate reviewer—not a guarantee of truth, neutrality, or better answers.
+An experimental portable instruction skill for research, brainstorming, and planning. It requires three fresh judge conversations, parent synthesis, and a separate fourth reviewer—not a guarantee of truth, neutrality, or better answers.
 
 **Overhead:** three judges + one review + parent synthesis/revision. Research and valid retries can add work. Keep it opt-in for decisions worth the time. This repository does not establish superiority over a careful single answer.
 
@@ -14,21 +14,35 @@ A little bite, not a roast generator: a supported flaw deserves plain words, and
 
 No fake certainty, mandatory contrarianism, corporate padding, political loyalty tests, or cruelty dressed up as honesty. “I can't verify that” can be the most based answer. Social approval is not a truth certificate, and sharper copy increasing adoption is still an untested hypothesis. See [voice examples and read sources](references/voice.md).
 
-## Quick start — native Hermes first
+## Install
 
-1. Use a Hermes installation with skills and native delegation available.
-2. Check the active profile's actual delegation model/provider. Pick an already available route that fits your budget; this skill cannot force a per-child model override.
-3. Install this repo as the skill folder (do not overwrite an existing installation):
+The optional stdlib-only helper copies only `SKILL.md`, the two runtime adapters, and the five supporting reference documents. It never copies evaluation artifacts, prompts/results, or arbitrary files, and it refuses an existing destination.
 
 ```sh
-git clone https://github.com/capthvnsen/hermes-based.git "${HERMES_HOME:-$HOME/.hermes}/skills/based"
+# Default destinations:
+#   Hermes: ${HERMES_HOME:-$HOME/.hermes}/skills/based
+#   Claude Code: ${CLAUDE_CONFIG_DIR:-$HOME/.claude}/skills/based
+python install.py --runtime hermes
+python install.py --runtime claude
+
+# Safer isolated/custom destination:
+python install.py --runtime hermes --dest "$PWD/.test-home/skills/based"
 ```
 
-4. Start a fresh session if needed, then send `/based <your question>`. `/skill based` loads it explicitly.
+Use `--dest` for a clean profile or test project. The helper does not edit global settings, credentials, or model routing. A documented manual alternative is to copy this repository's skill files into the same destination without overwriting an existing skill; do not copy `evaluations/` into a runtime skill directory.
 
-For a named Hermes profile, point HERMES_HOME at that profile before installing. Do not put credentials in this repository.
+The Claude-oriented `disable-model-invocation: true` field is intentionally present in the portable frontmatter for manual-only invocation. Hermes accepts it as an extra skill field and still requires an explicit `/based` invocation. The Hermes metadata remains in the same frontmatter.
 
-Claude Code is **optional**, not required by the native route. An authenticated Sonnet recipe, checked CLI version, isolation flags, error checks, and tool limits live in [model routing](references/model-routing.md). Other providers are not automatically ruled out, but their full workflow compatibility has not been demonstrated by this repo's pilot. No price or invoice-savings claim is made.
+## Native runtime paths
+
+The shared core is runtime-neutral. Choose exactly one adapter before launching the panel:
+
+- [Native Hermes](adapters/hermes.md): uses the actual `delegate_task(tasks=[...])` batch shape. Children inherit the active delegation model/provider; the skill does not pretend to select a per-child model.
+- [Native Claude Code](adapters/claude-code.md): uses the main session's observed native `Agent` tool, or the supported `Task` equivalent. `/based` stays inline in the main session; this path does not call the Claude CLI or Hermes.
+
+Both adapters require capability and budget preflight. If the native tool, acceptable route, fresh-context isolation, or budget is missing or unverified, stop honestly. There is no fake one-agent fallback, mandatory Sonnet route, new-key setup, or silent premium substitution. Claude discovery/E2E validation should use a clean `CLAUDE_CONFIG_DIR` without `--safe-mode`, because `--safe-mode` disables skills and custom agents; restrict tools explicitly instead.
+
+No native runtime compatibility claim is made here until the parent exercises clean-context Hermes and Claude Code flows. A structural test or a successful manual component call would not prove full invocation-to-final behavior.
 
 ## Use
 
@@ -38,6 +52,8 @@ Claude Code is **optional**, not required by the native route. An authenticated 
 /based Research this thesis and show what would disprove it.
 /based Stress-test this launch plan, then give me a workable sequence.
 ```
+
+The full workflow is opt-in. Loading the skill or asking what it does does not launch agents. Follow-up clarification stays within the current panel unless the user requests a materially new judgment or a fresh panel.
 
 ## The workflow
 
@@ -53,21 +69,18 @@ Separate conversations are not independent training or statistical evidence. Sam
 
 Consequential factual claims need sources actually read, with visible supporting citations. Important inferences need stated premises. Decisive math needs a calculator/code check. Predictions and brainstorms are hypotheses. Current prices or policies cannot come from stale recollection. Hearsay does not establish that a paper or report exists.
 
-Tool-free judges rely on evidence and calculations supplied by the parent; they cannot claim independent web research or tool verification. Read-only research is allowed only when those tools actually exist on the selected route. A reviewer's PASS is not evidence by itself.
+Tool-free judges rely on evidence and calculations supplied by the parent; they cannot claim independent web research or tool verification. Read-only research is allowed only when those tools actually exist on the selected native route. A reviewer's PASS is not evidence by itself.
 
 ## What has actually been tested
 
-- Structural checks and clean-profile `/based` discovery.
-- Manual separate Sonnet judge/reviewer execution.
-- A [five-case offline pilot](evaluations/pilot-v1/REPORT.md) comparing a strong single answer, single answer plus reviewer, and the full panel under matched supplied evidence.
-- [v1.2 voice/reviewer component spot checks](evaluations/tone-v12/REPORT.md), including a good-plan control, missing facts, insult bait, hearsay, corrected inputs and vulnerable circumstances. These are not full panels or proof that sharper answers are preferred.
+- Existing structural contract, evidence-shape, tone, reviewer, and fixture-arithmetic tests.
+- v1.3 safe-install tests covering custom paths with spaces, custom runtime homes, runtime validation, existing-destination refusal, allowlisted references/adapters, evaluation-artifact exclusion, and frontmatter fields.
+- The optional evaluation helper remains evaluation-only and is not a runtime dependency.
 
-The pilot recorded real outputs, model identity, time, and usage—and found defects, including incomplete plan coverage and unchecked arithmetic. No human-blind quality scores or overall winner have been assigned. Synthetic supplied-evidence testing is **not** proof of live-source research, automatic slash-to-final execution, or compatibility with every provider. See [testing](TESTING.md).
-
-The optional [pilot helper](evaluations/run_pilot.py) is for evaluation only; it is not the skill runtime or an enforcement layer. Running it makes model calls through your existing account; inspect it and approve its use under your own budget. It makes 45 calls for the five bundled cases. **It saves full prompts and outputs without automatic content redaction—use synthetic fixtures only.** No installation, credential changes, or publishing occurs.
+Native Hermes discovery, native Claude Code discovery, full invocation-to-final execution, and comparative answer quality for v1.3 remain pending the parent’s clean-context tests. Do not report those gates as successful from this repository alone. Historical v1.2 evaluation artifacts are retained as evidence of prior component work, not as v1.3 runtime compatibility proof.
 
 ## Keep it small
 
-This remains a Markdown instruction skill, not a plugin, service, telemetry system, model router, or guarantee that a model obeys every instruction. No lite modes, extra agents, or dashboards were added. Evaluate whether the panel earns its overhead before adding complexity. Normal safety, private-data, and external-action approvals remain intact.
+This remains a Markdown instruction skill plus a small optional stdlib installer, not a plugin, service, telemetry system, model router, or guarantee that a model obeys every instruction. No lite modes, extra agents, or dashboards were added. Evaluate whether the panel earns its overhead before adding complexity. Normal safety, private-data, and external-action approvals remain intact.
 
 MIT licensed.
