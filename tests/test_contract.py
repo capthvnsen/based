@@ -27,7 +27,7 @@ class StructuralChecks(unittest.TestCase):
         self.assertIn("name: based", header)
         description = re.search(r'description: "([^"\n]+)"', header).group(1)
         self.assertLessEqual(len(description), 60)
-        self.assertIn("version: 1.3.0", header)
+        self.assertIn("version: 0.21.0", header)
         self.assertIn("disable-model-invocation: true", header)
 
     def test_local_links(self):

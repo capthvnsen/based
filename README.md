@@ -1,5 +1,7 @@
 # /based
 
+**v0.21.0 — experimental beta.** Earlier native-test records use the previous v1.3 label; this beta renumbering does not change the tested workflow.
+
 **Speak your mind. Show your work. Own the trade-off.**
 
 An experimental portable instruction skill for research, brainstorming, and planning. It requires three fresh judge conversations, parent synthesis, and a separate fourth reviewer—not a guarantee of truth, neutrality, or better answers.
@@ -79,13 +81,13 @@ Tool-free judges rely on evidence and calculations supplied by the parent; they 
 ## What has actually been tested
 
 - Existing structural contract, evidence-shape, tone, reviewer, and fixture-arithmetic tests.
-- v1.3 safe-install tests covering custom paths with spaces, custom runtime homes, runtime validation, existing-destination refusal, allowlisted references/adapters, evaluation-artifact exclusion, and frontmatter fields.
+- Beta safe-install tests covering custom paths with spaces, custom runtime homes, runtime validation, existing-destination refusal, allowlisted references/adapters, evaluation-artifact exclusion, and frontmatter fields.
 - The optional evaluation helper remains evaluation-only and is not a runtime dependency.
 
 - Two observed native runs per runtime, with native completion records confirming all four workers. Final outputs in the bounded synthetic test fit the requested length; the initial Claude run did not, and that failure is preserved.
 - 27 structural/helper/installer tests, including an interrupted-install rollback regression.
 
-This is not a comparative accuracy or adoption study. Historical v1.2 evaluation artifacts remain prior component evidence, not v1.3 compatibility proof. Raw account/session traces are kept private; [public receipts](evaluations/native-v13/receipts.json) contain sanitized observations and synthetic answers.
+This is not a comparative accuracy or adoption study. Historical v1.2 evaluation artifacts remain prior component evidence, not current native-runtime compatibility proof. Raw account/session traces are kept private; [public receipts](evaluations/native-v13/receipts.json) contain sanitized observations and synthetic answers.
 
 ## A small real example
 

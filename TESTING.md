@@ -12,7 +12,9 @@ The current suite passes **27 tests**. Coverage includes metadata, relative link
 
 These are structural/helper/installer tests, not proof an LLM follows instructions. They require no model calls or credentials.
 
-## Native v1.3 execution
+## Native runtime execution
+
+The release is now **v0.21.0 beta**. Retained native-test records use the previous v1.3 label; only version metadata was renumbered, not the tested workflow. The historical receipt hashes retain their original tested payloads.
 
 See the [native verification report](evaluations/native-v13/REPORT.md) and [sanitized receipts](evaluations/native-v13/receipts.json).
 

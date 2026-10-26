@@ -1,7 +1,7 @@
 ---
 name: based
 description: "Use when /based is invoked. Independent reality checks."
-version: 1.3.0
+version: 0.21.0
 author: Alex Hansen
 license: MIT
 disable-model-invocation: true
