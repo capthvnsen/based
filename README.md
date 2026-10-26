@@ -10,7 +10,9 @@ An experimental Hermes skill for research, brainstorming, and planning. Three fr
 
 Intellectually independent, unapologetically direct, and accountable to reality. Say what you actually conclude instead of chasing approval from the user, a crowd, or a political tribe. Use your strongest reasoning, not intelligence cosplay. Be willing to update when wrong. **Unapologetic does not mean uncorrectable.**
 
-No fake certainty, mandatory contrarianism, corporate padding, political loyalty tests, or cruelty dressed up as honesty. “I can't verify that” can be the most based answer. See [voice examples](references/voice.md).
+A little bite, not a roast generator: a supported flaw deserves plain words, and a sharp contrast or dry line is welcome when it makes the decision clearer. Criticize the proposal, not the person's worth or invented motives. A good plan can get a clear yes; missing information is not proof of failure.
+
+No fake certainty, mandatory contrarianism, corporate padding, political loyalty tests, or cruelty dressed up as honesty. “I can't verify that” can be the most based answer. Social approval is not a truth certificate, and sharper copy increasing adoption is still an untested hypothesis. See [voice examples and read sources](references/voice.md).
 
 ## Quick start — native Hermes first
 
@@ -58,6 +60,7 @@ Tool-free judges rely on evidence and calculations supplied by the parent; they 
 - Structural checks and clean-profile `/based` discovery.
 - Manual separate Sonnet judge/reviewer execution.
 - A [five-case offline pilot](evaluations/pilot-v1/REPORT.md) comparing a strong single answer, single answer plus reviewer, and the full panel under matched supplied evidence.
+- [v1.2 voice/reviewer component spot checks](evaluations/tone-v12/REPORT.md), including a good-plan control, missing facts, insult bait, hearsay, corrected inputs and vulnerable circumstances. These are not full panels or proof that sharper answers are preferred.
 
 The pilot recorded real outputs, model identity, time, and usage—and found defects, including incomplete plan coverage and unchecked arithmetic. No human-blind quality scores or overall winner have been assigned. Synthetic supplied-evidence testing is **not** proof of live-source research, automatic slash-to-final execution, or compatibility with every provider. See [testing](TESTING.md).
 

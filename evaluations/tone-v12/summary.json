@@ -1,0 +1,15 @@
+{
+  "complete": true,
+  "calls": 13,
+  "voice_v12_initial_cases": 7,
+  "voice_v11_matched_controls": 2,
+  "reviewer_controls": 2,
+  "voice_v12_followups": 2,
+  "returned_models": [
+    "claude-sonnet-5-5"
+  ],
+  "prompt_hashes_verified": 13,
+  "reviewer_clean_verdict": "PASS",
+  "reviewer_false_aggression_verdict": "REVISE",
+  "assessment": "Unblinded parent inspection; initial flaws and two followups preserved in REPORT.md. No blind preference score, adoption outcome or full-panel tone comparison."
+}

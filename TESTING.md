@@ -20,6 +20,10 @@ The [five-case offline pilot](evaluations/pilot-v1/REPORT.md) completed 45 real 
 
 After the pilot-driven amendments, two new tool-free Sonnet reviewer calls received deliberately flawed synthetic drafts. Both returned REVISE: one identified stale pricing, hearsay upgraded into a report, and a false tool-verification claim; the other identified unproven demand and missing timeline, owner, budget, and stop conditions. See the [evidence check](evaluations/targeted-v11/reject-false-evidence.json) and [plan check](evaluations/targeted-v11/preserve-plan-constraints.json). These are limited component checks, not a rerun of the comparative pilot or proof that every revised answer will satisfy the reviewer. There is no clean-draft control in these two checks, so false-REVISE behavior remains untested. Reviewer suggestions themselves still require parent scrutiny.
 
+## v1.2 tone spot checks
+
+The [v1.2 voice report](evaluations/tone-v12/REPORT.md) records 13 actual Sonnet component calls: seven initial new-voice fixtures, two old-voice controls, two reviewer controls, and two follow-ups after a narrow amendment. The clean reviewer control returned PASS and the insulting, unsupported draft returned REVISE. Initial defects and fallible reviewer suggestions are preserved, not hidden. The author inspection was unblinded; no representative preference, adoption improvement, automatic full-panel compliance, or rerun of the earlier comparative pilot is claimed. Current structural tests check the new rules' presence and fixture math, not LLM compliance.
+
 ## Reproduce
 
 Requires Python standard library and an existing authenticated Claude Code supporting the flags in [model routing](references/model-routing.md). The optional helper is not required to install/use the skill:

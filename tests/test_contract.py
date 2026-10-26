@@ -27,7 +27,7 @@ class StructuralChecks(unittest.TestCase):
         self.assertIn("name: based", header)
         description = re.search(r'description: "([^"\n]+)"', header).group(1)
         self.assertLessEqual(len(description), 60)
-        self.assertIn("version: 1.1.0", header)
+        self.assertIn("version: 1.2.0", header)
 
     def test_local_links(self):
         for path in ROOT.rglob("*.md"):
@@ -60,6 +60,34 @@ class StructuralChecks(unittest.TestCase):
                     "minimum_clients_for_9000_owner_income": math.ceil((9000 / .5 + 2300) / (1995 - 675)),
                     "owner_income_at_16": (16 * (1995 - 675) - 2300) * .5}
         self.assertEqual(actual, expected)
+
+
+    def test_tone_permission_and_limits_are_documented(self):
+        # Presence checks only: these are NOT model-behavior guarantees.
+        voice = (ROOT / "references/voice.md").read_text()
+        for phrase in ["bracing, plain-spoken candor", "restrained dry wit",
+                       "Unknown does not mean absent", "If the plan holds up, say so",
+                       "For grief, crisis, or vulnerability", "not a representative study",
+                       "sharper answers increase adoption"]:
+            self.assertIn(phrase, voice)
+
+    def test_reviewer_does_not_require_false_aggression(self):
+        reviewer = (ROOT / "references/reviewer.md").read_text()
+        for phrase in ["Material false aggression requires REVISE",
+                       "lack of paying users alone is not a fatal flaw",
+                       "may pass without any sting", "different conclusion from a strong normal answer"]:
+            self.assertIn(phrase, reviewer)
+
+    def test_tone_fixture_shape_and_checked_arithmetic(self):
+        fixture = json.loads((ROOT / "evaluations/tone-v12/cases.json").read_text())
+        self.assertTrue(fixture["synthetic_only"])
+        cases = {case["id"]: case for case in fixture["cases"]}
+        self.assertEqual(len(cases), 7)
+        self.assertEqual(cases["negative-margin"]["checked"]["contribution_before_fixed_costs"], 10 - 14)
+        self.assertEqual(cases["sound-plan"]["checked"]["contribution_before_fixed_costs"], 10 - 4)
+        self.assertEqual(cases["corrected-facts"]["checked"]["corrected_contribution"], 10 - 4)
+        for name in ["thin-brief", "personal-insult-bait", "hearsay-and-flattery", "vulnerable-context"]:
+            self.assertTrue(cases[name]["checks"])
 
 
 class EvaluationHelperChecks(unittest.TestCase):

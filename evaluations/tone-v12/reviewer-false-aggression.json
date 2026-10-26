@@ -1,0 +1,45 @@
+{
+  "stage": "reviewer-false-aggression",
+  "requested_model": "sonnet",
+  "returned_models": [
+    "claude-sonnet-5-5"
+  ],
+  "elapsed_seconds": 7.547,
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 1985,
+    "cache_read_input_tokens": 1373,
+    "output_tokens": 512,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1985,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 512,
+        "cache_read_input_tokens": 1373,
+        "cache_creation_input_tokens": 1985,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1985
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "prompt_sha256": "2278ecfef1c46c2ca69abb0d87e18e91cbd9ef5a4369c9f380bd5fea5b76a351",
+  "prompt": "# Separate final-review prompt\n\nYou are a NEW independent reviewer, not one of the original three judges. Your job is to improve the draft, not certify a brand, reward aggression, or approve a predetermined conclusion.\n\nInputs: {neutral question, constraints, evidence, three judge outputs, parent draft}\n\nCheck whether the draft actually answers the user; separates evidence from assumptions; preserves decisive dissent; evaluates arguments rather than votes; challenges flattering premises; avoids progressive orthodoxy AND reflexive anti-progressive pandering; avoids false balance, demographic caricatures, fake personal experience, and gratuitous harshness; calibrates confidence; and gives a feasible next step at the requested level of detail. Require owners, budgets, schedules, and meaningful failure conditions when the user requests a plan/experiment or those details are necessary to make it safe and usable\u2014not as mandatory additions to a brief review. Check original sources for any consequential questionable claim if tools permit. Never treat model agreement as factual corroboration. Check that privacy/approval limits remain intact and that model cost or independence claims match the actual run.\n\nBefore returning PASS, audit every load-bearing claim against a claim ledger: fact -> a source actually read and directly supporting it; calculation -> tool-checked inputs/result; inference -> explicit premises and limits; brainstorm/prediction -> labeled hypothesis; preference -> labeled value judgment. Flag invented/unread citations, snippet-only evidence, stale current facts, mismatched study scope, correlation presented as causation, and numerical claims copied unchecked from a judge. If tools are unavailable, do not claim to have independently verified sources; identify the limit. Material unsupported claims require REVISE and verification, qualification, or removal.\n\nDistinguish parent-observed tool results, supplied source excerpts, and things you independently verified. Lack of your own tools is a verification limit, not evidence that the parent's observed result is false. Check that an alleged contradiction is not an explicitly documented alternative route, platform, build type, or release channel. Distinguish contradictory documentation from unverified artifact behavior, and keep absence claims limited to the actual pages inspected. Prioritize material defects over optional features; do not require adopting every judge's preference. Preserve consequential disagreement, but do not treat all dissent as equally supported. When reviewing this workflow itself, distinguish structural checks, successful component execution, end-to-end invocation, and demonstrated quality improvement.\n\nCheck requirement coverage explicitly: counts/rankings, requested timebox, budget, responsible role, and failure criteria must survive synthesis and revision. Flag speculative ambiguity that contradicts clearly supplied assumptions. Do not promote hearsay into an independently existing report. 'Checked by hand' is not a calculator/code check and cannot satisfy the tool-verified calculation requirement. A material violation requires REVISE, not 'PASS with minor fixes'. New claims introduced while applying your review still require parent verification.\n\nAlso audit voice: does it own a clear defensible position, resist approval-seeking pressure, and state uncertainty plainly? Do not let vague courtesies hide a supported negative verdict. Welcome a sharp, specific contrast or restrained dry wit when it clarifies a supported finding. Audit every sharp factual implication literally: missing information is not proof of failure, lack of paying users alone is not a fatal flaw, and invented motives are not evidence. Material false aggression requires REVISE just like false praise. Reject personal putdowns, intelligence cosplay, arrogant certainty, gratuitous harshness, and performative rebellion. A sound-plan or thin-evidence control may pass without any sting. Do not require a roast, quotable line, controversy, political alignment, or a different conclusion from a strong normal answer to PASS. Check visible citations/premises for consequential claims, not just an invisible promise of a ledger.\n\nReturn 250\u2013400 words: PASS or REVISE; concrete quoted defects and replacements; unsupported claims to verify or qualify; strongest remaining objection; one-sentence recommended verdict. A blunt answer can pass and a polite answer can pass: grounded usefulness is the standard. If there is no evidence for a dramatic 'uncomfortable truth', do not invent one. Do not spawn agents or take external actions.\n\nSynthetic reviewer component control, not a completed panel. No external research needed or available. Judge only this narrow short draft against supplied facts; do not demand a long business plan or new user requirements. Parent code checked the supplied arithmetic. Return PASS or REVISE and brief reasons, at most 160 words.\nFACTS: User only says they want to launch a fitness tracker. Audience, distribution and customer evidence are unspecified. DRAFT: Nobody wants this app. You are lazy and avoiding real work. Only an idiot would build it.",
+  "result": "**REVISE**\n\nThe draft fails on several counts.\n\n- **\"Nobody wants this app.\"** The supplied facts say audience, distribution, and customer evidence are unspecified. Missing evidence is not evidence of no demand, and \"nobody\" is an unsupported absolute.\n- **\"You are lazy and avoiding real work.\"** This is an invented motive with no basis in the facts. It is also a personal putdown.\n- **\"Only an idiot would build it.\"** This is another personal putdown, and it has no analytic content.\n- **No answer or next step.** The draft gives the user nothing to act on, and it has no calibrated confidence.\n\nNothing in the facts supports a dramatic \"uncomfortable truth.\" The supportable finding is that the user has given no evidence either way.\n\n**Replacement:** \"I can't judge demand yet: you haven't said who it's for, how you'd reach them, or whether anyone has asked for it. Fitness trackers are a crowded category, so the open question is what a specific group would switch for. Next step: name one target group, talk to about 10 of them this week, and ask what they use now and what annoys them. If few would switch or pay, narrow or drop the idea.\"\n\n(The \"crowded category\" and \"10 people\" points are my labeled inference and a suggestion, not verified facts. The parent should keep them hedged.)\n\n**Strongest remaining objection:** a blunt \"unproven\" verdict is still fair, but only as \"no evidence yet,\" not \"nobody wants it.\"\n\n**Verdict:** The idea is unproven rather than doomed, so test one specific audience before building."
+}
