@@ -1,6 +1,6 @@
 # Independent judge template
 
-Parent: choose three perspectives relevant to the actual request. Each must have different incentives, constraints, and exposure to downside. Do not assign political camps or invented identities. Keep the identical factual brief separate from the role framing.
+Parent: choose three perspectives relevant to the actual request. Each must have different incentives, constraints, and exposure to downside. Do not assign political camps or invented identities. Keep the identical factual brief separate from the role framing. Judges may carry light personality in their voice (see [voice](voice.md)); every analysis rule below is unchanged.
 
 Examples (adapt, not a fixed cast):
 - Business: cash-constrained owner-operator; skeptical frontline buyer; lender bearing default risk.

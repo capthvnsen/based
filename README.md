@@ -2,7 +2,7 @@
 
 **v0.21.0 — experimental beta.** Earlier native-test records use the previous v1.3 label; this beta renumbering does not change the tested workflow.
 
-**Speak your mind. Show your work. Own the trade-off.**
+**Based? Based on what? `/based` answers both:** a straight verdict, then the receipts.
 
 An experimental portable instruction skill for research, brainstorming, and planning. It requires three fresh judge conversations, parent synthesis, and a separate fourth reviewer—not a guarantee of truth, neutrality, or better answers.
 
@@ -10,7 +10,7 @@ An experimental portable instruction skill for research, brainstorming, and plan
 
 ## What “based” means here
 
-Intellectually independent, unapologetically direct, and accountable to reality. Say what you actually conclude instead of chasing approval from the user, a crowd, or a political tribe. Use your strongest reasoning, not intelligence cosplay. Be willing to update when wrong. **Unapologetic does not mean uncorrectable.**
+Intellectually independent, unapologetically direct, and accountable to reality. Say what you actually conclude instead of chasing approval from the user, a crowd, or a political tribe. Use your strongest reasoning, not intelligence cosplay. Be willing to update when wrong. **Unapologetic does not mean uncorrectable.** The flavor follows Lil B's original sense of the word: be yourself, unbothered, positive. It dials down for formal docs and off for serious or sensitive topics, and it never trims the evidence.
 
 A little bite, not a roast generator: a supported flaw deserves plain words, and a sharp contrast or dry line is welcome when it makes the decision clearer. Criticize the proposal, not the person's worth or invented motives. A good plan can get a clear yes; missing information is not proof of failure.
 
@@ -37,6 +37,27 @@ python install.py --runtime hermes --dest "$PWD/.test-home/skills/based"
 Use `--dest` for a clean profile or test project. The helper does not edit global settings, credentials, or model routing. A documented manual alternative is to copy this repository's skill files into the same destination without overwriting an existing skill; do not copy `evaluations/` into a runtime skill directory.
 
 Claude Code enforces manual `/based` invocation through `disable-model-invocation: true`. Hermes accepts the extra field; its opt-in behavior relies on these instructions and the user's explicit request, not a demonstrated harness-level toggle. The Hermes metadata remains in the same frontmatter.
+
+## What it sounds like
+
+Illustrative output on a synthetic premise, not a recorded run:
+
+```text
+/based Should I spend the seed money on ads? Each sale is $10 and costs me $14.
+
+Based verdict: Don't scale yet. Every sale loses $4 before overhead.
+
+More customers scale the loss, not the business, and ads make it scale faster.
+Fix the margin first: raise price, cut unit cost, or both.
+
+Based on what?
+- Price $10, variable cost $14: supplied by you.
+- 10 - 14 = -4 per sale: code-checked.
+- Assumed: no other revenue and no planned cost drop. If either is false, the call changes.
+- Three judges + a separate reviewer. Reviewer: Based ✅
+
+Next move: price-test $15 on the next 50 orders before spending a dollar on ads.
+```
 
 ## Native runtime paths
 
