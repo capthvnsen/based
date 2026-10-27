@@ -46,10 +46,10 @@ Based on what?
 Next move: find a price or unit cost that clears $14 with room for overhead,
 test it on a small batch, then revisit ads.
 
-Full panel: 3 judges + reviewer (Based ✅), session default route; 1 fix applied.
+Full panel, 3 judges + reviewer ✅
 ```
 
-That last line is the only process talk you get; judge and reviewer details stay internal. A brainstorm runs light by default and ends with something like `Light mode, unreviewed: 3 judges.` Force either with `/based full ...` or `/based light ...`.
+That last line is the only process talk you get, from a fixed set of templates; judge and reviewer details stay internal, and sensitive or plain-requested answers drop it entirely. A brainstorm runs light by default and ends with `Light mode, 3 judges, unreviewed`; its ideas are distinct channels with named sources, and plans come with a week-by-week cadence and owners. Force either with `/based full ...` or `/based light ...`.
 
 ## Status and limits
 
@@ -112,7 +112,7 @@ The shared core is runtime-neutral. Choose exactly one adapter before launching 
 - [Native Hermes](adapters/hermes.md): uses the actual `delegate_task(tasks=[...])` batch shape. Children inherit the active delegation model/provider; the skill does not select a per-child model.
 - [Native Claude Code](adapters/claude-code.md): uses the main session's observed native `Agent` tool, or the supported `Task` equivalent. `/based` stays inline in the main session; this path does not call the Claude CLI or Hermes.
 
-Both adapters require capability and budget preflight. A non-interactive run or a stated budget/permission ('go ahead', `--max-budget-usd`) satisfies it: the run proceeds on the session's default route and names it in the process line. Without that, or when the native tool, fresh-context isolation, or a usable route is missing, it stops honestly. There is no one-agent fallback, mandatory Sonnet route, new-key setup, or silent premium substitution. Check Hermes child limits before running: the tested one-shot profile allowed four children. Claude discovery/E2E validation should use a clean `CLAUDE_CONFIG_DIR` without `--safe-mode`, because `--safe-mode` disables skills and custom agents; restrict tools explicitly instead.
+Both adapters require capability and budget preflight. A non-interactive run or a stated budget/permission ('go ahead', `--max-budget-usd`) satisfies it: the run proceeds on the session's default route; the process line names a route only when it is non-default. Without that, or when the native tool, fresh-context isolation, or a usable route is missing, it stops honestly. There is no one-agent fallback, mandatory Sonnet route, new-key setup, or silent premium substitution. Check Hermes child limits before running: the tested one-shot profile allowed four children. Claude discovery/E2E validation should use a clean `CLAUDE_CONFIG_DIR` without `--safe-mode`, because `--safe-mode` disables skills and custom agents; restrict tools explicitly instead.
 
 ## Use and workflow
 

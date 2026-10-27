@@ -9,6 +9,7 @@ Version labels describe the skill's instruction revisions. Evaluation directory 
 - Check installed structure and meaningful contracts without pinning prose or a release version. Add a unit-test matrix covering Ubuntu (Python 3.9/3.12) and macOS (Python 3.11/3.12).
 - Put installation and usage first in the README and document upgrade/uninstall behavior.
 - Voice v2 after an A/B test found /based rigorous but long, narrated, and flat: one process line max (dissent as a single `Dissent:` line), triggered defect-specific verdict stings in voice.md, concrete named tools/vendors labelled '(unverified)', fetched primary pages for research, a light mode (no reviewer) alongside full, and headless/stated-budget runs proceed on the default route.
+- Voice v3 after a round-2 A/B: exactly one fixed-template process line (none with flavor off) and no other process narration; a 1–2 sentence verdict whose sting is required when a supported defect exists and targets the plan, never the panel; the everyone-agrees check moves to the body; brainstorm ideas must be distinct opportunity channels with named sources; plans need a week-by-week operating cadence with owners. The reviewer REVISEs each violation.
 
 ## v0.21.0 beta — 2026-10-26
 
