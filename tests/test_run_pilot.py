@@ -1,5 +1,6 @@
 """Offline runner regressions: no model CLI or network calls."""
 import contextlib
+from datetime import datetime, timezone
 import importlib.util
 import io
 import json
@@ -134,6 +135,46 @@ class PilotTests(unittest.TestCase):
                 self.assertIn(self.cases[-1]["id"], blind)
                 self.assertTrue((output / "private/answer-key.json").is_file())
                 self.assertFalse((output / "answer-key.json").exists())
+
+    def test_repeated_default_runs_get_separate_utc_timestamp_model_directories(self):
+        for name in ["SKILL.md", "references/panel.md", "references/reviewer.md", "evaluations/cases.json"]:
+            target = self.out / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text((ROOT / name).read_text())
+        results = self.out / "evaluations/results"
+        results.mkdir()
+        started = datetime.now(timezone.utc)
+        with patch.object(self.pilot, "ROOT", self.out), \
+                patch.object(self.pilot.subprocess, "run") as cli, \
+                patch("sys.argv", ["run_pilot.py", "--dry-run", "--model", "opus"]), \
+                contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(self.pilot.main(), 0)
+            first = next(results.iterdir())
+            original = (first / "summary.json").read_text()
+            self.assertEqual(self.pilot.main(), 0)
+        cli.assert_not_called()
+        finished = datetime.now(timezone.utc)
+        runs = list(results.iterdir())
+        self.assertEqual(len(runs), 2)
+        self.assertEqual((first / "summary.json").read_text(), original)
+        for run in runs:
+            self.assertRegex(run.name, r"^\d{8}T\d{6}\.\d{6}Z-opus$")
+            timestamp = datetime.strptime(run.name.removesuffix("-opus"), "%Y%m%dT%H%M%S.%fZ").replace(tzinfo=timezone.utc)
+            self.assertLessEqual(started, timestamp)
+            self.assertLessEqual(timestamp, finished)
+            self.assertTrue((run / "scratch").is_dir())
+            self.assertEqual(json.loads((run / "summary.json").read_text())["prompts"], 45)
+
+    def test_explicit_output_still_rejects_overwrite(self):
+        marker = self.out / "keep.txt"
+        marker.write_text("keep this run")
+        with patch("sys.argv", ["run_pilot.py", "--dry-run", "--output", str(self.out)]), \
+                contextlib.redirect_stderr(io.StringIO()) as stderr, \
+                self.assertRaises(SystemExit) as exc:
+            self.pilot.main()
+        self.assertEqual(exc.exception.code, 2)
+        self.assertIn("no overwrite", stderr.getvalue())
+        self.assertEqual(marker.read_text(), "keep this run")
 
     def test_model_identity_checks_aliases_explicit_ids_and_all_reported_models(self):
         for requested, returned, accepted in [

@@ -10,12 +10,14 @@ No automatic content sanitization: use synthetic fixtures only.
 Every call uses --safe-mode: it disables skills and custom agents. Use it here
 because Python supplies the prompts and orchestration; do not use this runner
 or --safe-mode to test native skill discovery or end-to-end /based invocation.
-Output defaults to evaluations/results/; isolated scratch dirs live inside it.
+Output defaults to evaluations/results/<UTC timestamp>-<model>/, with
+microsecond timestamps; isolated scratch dirs live inside each run directory.
 Keep private/answer-key.json and raw traces private when sharing blind.md.
 No automatic quality winner, paid install, web access, or publishing.
 """
 import argparse
 import concurrent.futures
+from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
@@ -174,12 +176,16 @@ def run_case(case, model, scratch, out, dry_run=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--model", default="sonnet", help="Model alias or explicit ID; all reported identities must match")
-    parser.add_argument("--output", type=Path, default=ROOT / "evaluations/results",
-                        help="New output directory (default: evaluations/results/); scratch dirs are created inside it")
+    parser.add_argument("--output", type=Path,
+                        help="New output directory (default: evaluations/results/<UTC timestamp>-<model>/); existing directories are never overwritten")
     parser.add_argument("--dry-run", action="store_true", help="Write every stage's prompt without calling any model")
     args = parser.parse_args()
     if not args.dry_run and not shutil.which("claude"):
         parser.error("Install/authenticate Claude Code separately; this script will not do so")
+    if args.output is None:
+        timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
+        model_name = re.sub(r"[^A-Za-z0-9._-]", "-", args.model)
+        args.output = ROOT / "evaluations/results" / f"{timestamp}-{model_name}"
     if args.output.exists():
         parser.error("Output already exists; choose a new directory (no overwrite)")
     args.output.mkdir(parents=True)
