@@ -82,13 +82,30 @@ class InstallTests(unittest.TestCase):
                 self.assertIn("metadata:\n  hermes:", frontmatter)
 
     def test_omitted_document_links_point_to_repository(self):
-        install.install("claude", self.destination)
-        skill = (self.destination / "SKILL.md").read_text(encoding="utf-8")
-        routing = (self.destination / "references/model-routing.md").read_text(encoding="utf-8")
-        for text in (skill, routing):
-            self.assertIn(install.REPOSITORY_FILES + "adapters/hermes.md", text)
-        self.assertIn(install.REPOSITORY_FILES + "references/evaluation.md", skill)
-        self.assertIn("](adapters/claude-code.md)", skill)
+        source = self.parent / "source"
+        linked_files = ("references/evaluation.md", *install.ADAPTERS.values())
+        for relative in install.INSTALL_FILES:
+            path = source / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("\n".join(
+                f"[Document]({Path(os.path.relpath(source / target, path.parent)).as_posix()})"
+                for target in linked_files
+            ), encoding="utf-8")
+
+        with patch.object(install, "__file__", str(source / "install.py")):
+            for runtime, adapter in install.ADAPTERS.items():
+                destination = install.install(runtime, self.parent / runtime)
+                for path in destination.rglob("*.md"):
+                    text = path.read_text(encoding="utf-8")
+                    for target in linked_files:
+                        link = Path(os.path.relpath(destination / target, path.parent)).as_posix()
+                        with self.subTest(runtime=runtime, path=path, target=target):
+                            if target == adapter:
+                                self.assertIn(f"]({link})", text)
+                            else:
+                                self.assertIn(f"]({install.REPOSITORY_FILES}{target})", text)
+                                self.assertNotIn(f"]({link})", text)
+                                self.assertFalse((destination / target).exists())
 
     def test_main_installs_using_explicit_destination(self):
         result, stdout, stderr = self.cli()
