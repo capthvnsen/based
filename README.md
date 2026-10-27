@@ -2,7 +2,7 @@
 
 **Based? Based on what? `/based` answers both:** a straight verdict, then the receipts.
 
-A portable instruction skill for research, brainstorming, and planning: three fresh judge conversations, parent synthesis, and a separate fourth reviewer.
+A portable instruction skill for research, brainstorming, and planning: three fresh judge conversations, parent synthesis, and a separate fourth reviewer. A light mode drops the reviewer for brainstorms and low-stakes asks.
 
 ## Quickstart
 
@@ -29,26 +29,33 @@ Illustrative output on a synthetic premise, not a recorded run:
 ```text
 /based Should I spend the seed money on ads? Each sale is $10 and costs me $14.
 
-Based verdict: Don't scale yet. Every sale loses $4 before overhead.
+Based verdict: Don't scale yet. Right now every sale is a $4 donation to
+your customers, and ads just donate faster.
 
-More customers scale the loss, not the business, and ads make it scale faster.
-Fix the margin first: raise price, cut unit cost, or both.
+More customers scale the loss, not the business. Fix the margin first:
+raise price, cut unit cost, or both.
+Dissent: a capped ad test to measure demand, not profit, is defensible
+if you book it as research spend.
 
 Based on what?
 - Price $10, variable cost $14: supplied by you.
 - 10 - 14 = -4 per sale: code-checked.
-- Assumed: no other revenue and no planned cost drop. If either is false, the call changes.
-- Three judges + a separate reviewer. Reviewer: Based ✅
+- Cringe assumption: that volume fixes margin. Nothing supplied shows unit
+  cost falls with scale. If it does, the call changes.
 
 Next move: find a price or unit cost that clears $14 with room for overhead,
 test it on a small batch, then revisit ads.
+
+Full panel: 3 judges + reviewer (Based ✅), session default route; 1 fix applied.
 ```
+
+That last line is the only process talk you get; judge and reviewer details stay internal. A brainstorm runs light by default and ends with something like `Light mode, unreviewed: 3 judges.` Force either with `/based full ...` or `/based light ...`.
 
 ## Status and limits
 
 **v0.21.0 — experimental beta.** Earlier native-test records use the previous v1.3 label; the beta renumbering did not change the tested workflow. See [version history](CHANGELOG.md).
 
-**Overhead:** three judges + one review + parent synthesis/revision. Research and valid retries can add work. Keep it opt-in for decisions worth the time. Separate conversations can share same-model blind spots, and a reviewer's PASS is not evidence by itself. This repository does not establish better accuracy, human preference, or adoption than a careful single answer, or compatibility with every runtime version, provider, and platform.
+**Overhead:** full mode is three judges + one review + parent synthesis/revision; light mode drops the review. Research and valid retries can add work. Keep it opt-in for decisions worth the time. Separate conversations can share same-model blind spots, and a reviewer's PASS is not evidence by itself. This repository does not establish better accuracy, human preference, or adoption than a careful single answer, or compatibility with every runtime version, provider, and platform.
 
 This remains a Markdown instruction skill with a stdlib-only installer. Model obedience is not enforced. Normal safety, private-data, and external-action approvals remain intact.
 
@@ -105,7 +112,7 @@ The shared core is runtime-neutral. Choose exactly one adapter before launching 
 - [Native Hermes](adapters/hermes.md): uses the actual `delegate_task(tasks=[...])` batch shape. Children inherit the active delegation model/provider; the skill does not select a per-child model.
 - [Native Claude Code](adapters/claude-code.md): uses the main session's observed native `Agent` tool, or the supported `Task` equivalent. `/based` stays inline in the main session; this path does not call the Claude CLI or Hermes.
 
-Both adapters require capability and budget preflight. If the native tool, acceptable route, fresh-context isolation, or budget is missing or unverified, stop honestly. There is no one-agent fallback, mandatory Sonnet route, new-key setup, or silent premium substitution. Check Hermes child limits before running: the tested one-shot profile allowed four children. Claude discovery/E2E validation should use a clean `CLAUDE_CONFIG_DIR` without `--safe-mode`, because `--safe-mode` disables skills and custom agents; restrict tools explicitly instead.
+Both adapters require capability and budget preflight. A non-interactive run or a stated budget/permission ('go ahead', `--max-budget-usd`) satisfies it: the run proceeds on the session's default route and names it in the process line. Without that, or when the native tool, fresh-context isolation, or a usable route is missing, it stops honestly. There is no one-agent fallback, mandatory Sonnet route, new-key setup, or silent premium substitution. Check Hermes child limits before running: the tested one-shot profile allowed four children. Claude discovery/E2E validation should use a clean `CLAUDE_CONFIG_DIR` without `--safe-mode`, because `--safe-mode` disables skills and custom agents; restrict tools explicitly instead.
 
 ## Use and workflow
 
@@ -113,6 +120,7 @@ Both adapters require capability and budget preflight. If the native tool, accep
 /based Should I take this job or stay independent?
 /based Research this thesis and show what would disprove it.
 /based Stress-test this launch plan, then give me a workable sequence.
+/based light Brainstorm ten cheap ways to find my first five customers.
 ```
 
 Loading the skill or asking what it does does not launch agents. Follow-up clarification stays within the current panel unless the user requests a materially new judgment or a fresh panel.
@@ -120,10 +128,10 @@ Loading the skill or asking what it does does not launch agents. Follow-up clari
 - Three hypothetical perspectives have different incentives and constraints, tailored to the topic. They are analytical lenses, not real experts or fabricated lived experience.
 - Each gets the same neutral evidence brief in a fresh conversation, without the other answers or the parent's preferred verdict. No judge must disagree just to make the panel look diverse.
 - The parent weighs evidence rather than votes, then drafts an answer.
-- A fourth fresh agent checks grounding, assumptions, missing requirements, approval-seeking, needless harshness, and practical usefulness.
+- In full mode, a fourth fresh agent checks grounding, assumptions, missing requirements, approval-seeking, needless harshness, and practical usefulness.
 - The parent applies valid critique, rejects erroneous critique, and rechecks the final edited answer.
 
-Consequential factual claims need sources actually read, with visible supporting citations. Important inferences need stated premises. Decisive math needs a calculator/code check. Predictions and brainstorms are hypotheses. Current prices or policies cannot come from stale recollection. Hearsay does not establish that a paper or report exists.
+Consequential factual claims need sources actually read, with visible supporting citations; for research, the parent opens the primary page and cites URL and read date, labelling anything else 'snippet only'. Judges name real tools, vendors, and benchmarks, labelled '(unverified)' unless checked. Important inferences need stated premises. Decisive math needs a calculator/code check. Predictions and brainstorms are hypotheses. Current prices or policies cannot come from stale recollection. Hearsay does not establish that a paper or report exists.
 
 Tool-free judges rely on evidence and calculations supplied by the parent; they cannot claim independent web research or tool verification. Read-only research is allowed only when those tools exist on the selected native route.
 

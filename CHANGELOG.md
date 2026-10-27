@@ -8,6 +8,7 @@ Version labels describe the skill's instruction revisions. Evaluation directory 
 - Add dry-run previews, explicit upgrades with timestamped backups (`--force` aliases `--upgrade`), uninstall, and concise expected-error messages.
 - Check installed structure and meaningful contracts without pinning prose or a release version. Add a unit-test matrix covering Ubuntu (Python 3.9/3.12) and macOS (Python 3.11/3.12).
 - Put installation and usage first in the README and document upgrade/uninstall behavior.
+- Voice v2 after an A/B test found /based rigorous but long, narrated, and flat: one process line max (dissent as a single `Dissent:` line), triggered defect-specific verdict stings in voice.md, concrete named tools/vendors labelled '(unverified)', fetched primary pages for research, a light mode (no reviewer) alongside full, and headless/stated-budget runs proceed on the default route.
 
 ## v0.21.0 beta — 2026-10-26
 
