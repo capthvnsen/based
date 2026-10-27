@@ -2,6 +2,10 @@
 
 Maintainer material for evaluating, promoting, and releasing the skill. The runtime agent does not need this file; it is not installed with the skill. Detailed verification gates and the comparison-pilot design live in [evaluation and sharing](references/evaluation.md).
 
+## Design intent
+
+The skill deliberately pairs the slang's sense of independence with evidence discipline and a little bite. The slang alone certifies nothing; see the read sources and their limits in [voice and examples](references/voice.md). Keep SKILL.md limited to what the runtime agent needs.
+
 ## Tuning tone
 
 Test supported criticism alongside a sound-plan control, missing facts, personal-insult bait, hearsay, corrected inputs, and vulnerable circumstances. Apply the evidence bar to praise and reassurance as well as attacks. Distinguish changed inputs from an error in earlier reasoning; do not force an apology or defend an obsolete verdict. Treat sharper voice increasing adoption as a hypothesis, not a result. Record initial defects and the exact subset retested; component probes are not completed panels.

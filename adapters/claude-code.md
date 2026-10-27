@@ -13,7 +13,7 @@ Use this adapter only in a Claude Code session whose native `Agent` tool is avai
 
 From the MAIN session, launch exactly three native subagent calls in one parallel batch when the observed tool supports parallel calls. Each receives the identical neutral question, facts, constraints, unknowns, research-mode statement, and only its own hypothetical lens. Do not pass the parent's draft, another judge's output, or a desired verdict. Keep research read-only and context minimal. Fresh subagent contexts are required; do not resume or reuse a prior subagent.
 
-Collect all three real outputs before parent synthesis. Treat a failed, timed-out, errored, or missing subagent as incomplete; retry at most once when safe and never fabricate a replacement.
+Collect the real outputs before parent synthesis. Handle a failed, timed-out, errored, or missing subagent (judge or reviewer) per [Failure handling](../SKILL.md#failure-handling); never fabricate a replacement.
 
 ## Parent synthesis and fourth review
 

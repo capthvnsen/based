@@ -31,7 +31,7 @@ delegate_task(tasks=[
 
 Each child receives the same neutral question, facts, constraints, unknowns, and research-mode statement, plus only its own lens. Do not include the parent's draft or another judge's output. `delegate_task` provides a fresh conversation and returns only child summaries to the parent; shared project context files may also be visible, so do not place unrelated private material in the workspace.
 
-Collect all three real results before synthesis. A failed, timed-out, errored, or missing result is incomplete; retry at most once when safe and never fabricate a substitute.
+Collect the real results before synthesis. Handle a failed, timed-out, errored, or missing result (judge or reviewer) per [Failure handling](../SKILL.md#failure-handling); never fabricate a substitute.
 
 ## Parent synthesis and fourth review
 
