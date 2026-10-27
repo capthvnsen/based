@@ -49,7 +49,7 @@ test it on a small batch, then revisit ads.
 Full panel, 3 judges + reviewer ✅
 ```
 
-That last line is the only process talk you get, from a fixed set of templates; judge and reviewer details stay internal, and sensitive or plain-requested answers drop it entirely. A brainstorm runs light by default and ends with `Light mode, 3 judges, unreviewed`; its ideas are distinct channels with named sources, and plans come with a week-by-week cadence and owners. Force either with `/based full ...` or `/based light ...`.
+That last line is the only process talk you get, from a fixed set of templates; judges, panels, and reviewers never appear in the answer itself (dissent reads as a counter-argument about your topic). Sensitive or plain-requested answers drop the line and the headings entirely: a short, plain reply with one next step. A brainstorm runs light by default and ends with `Light mode, 3 judges, unreviewed`; its ideas are distinct channels with named sources, and plans come with a week-by-week cadence and owners. Force either with `/based full ...` or `/based light ...`.
 
 ## Status and limits
 
@@ -112,7 +112,7 @@ The shared core is runtime-neutral. Choose exactly one adapter before launching 
 - [Native Hermes](adapters/hermes.md): uses the actual `delegate_task(tasks=[...])` batch shape. Children inherit the active delegation model/provider; the skill does not select a per-child model.
 - [Native Claude Code](adapters/claude-code.md): uses the main session's observed native `Agent` tool, or the supported `Task` equivalent. `/based` stays inline in the main session; this path does not call the Claude CLI or Hermes.
 
-Both adapters require capability and budget preflight. A non-interactive run or a stated budget/permission ('go ahead', `--max-budget-usd`) satisfies it: the run proceeds on the session's default route; the process line names a route only when it is non-default. Without that, or when the native tool, fresh-context isolation, or a usable route is missing, it stops honestly. There is no one-agent fallback, mandatory Sonnet route, new-key setup, or silent premium substitution. Check Hermes child limits before running: the tested one-shot profile allowed four children. Claude discovery/E2E validation should use a clean `CLAUDE_CONFIG_DIR` without `--safe-mode`, because `--safe-mode` disables skills and custom agents; restrict tools explicitly instead.
+Both adapters require capability and budget preflight. A non-interactive run or a stated budget/permission ('go ahead', `--max-budget-usd`) satisfies the budget check only: the run proceeds on the session's default route. A cheaper or different model runs only if you name it in the request ('use haiku for judges'), and only then does the process line show a route; light mode saves cost through fewer agents. Without that, or when the native tool, fresh-context isolation, or a usable route is missing, it stops honestly. There is no one-agent fallback, mandatory Sonnet route, new-key setup, or silent premium substitution. Check Hermes child limits before running: the tested one-shot profile allowed four children. Claude discovery/E2E validation should use a clean `CLAUDE_CONFIG_DIR` without `--safe-mode`, because `--safe-mode` disables skills and custom agents; restrict tools explicitly instead.
 
 ## Use and workflow
 
@@ -131,7 +131,7 @@ Loading the skill or asking what it does does not launch agents. Follow-up clari
 - In full mode, a fourth fresh agent checks grounding, assumptions, missing requirements, approval-seeking, needless harshness, and practical usefulness.
 - The parent applies valid critique, rejects erroneous critique, and rechecks the final edited answer.
 
-Consequential factual claims need sources actually read, with visible supporting citations; for research, the parent opens the primary page and cites URL and read date, labelling anything else 'snippet only'. Judges name real tools, vendors, and benchmarks, labelled '(unverified)' unless checked. Important inferences need stated premises. Decisive math needs a calculator/code check. Predictions and brainstorms are hypotheses. Current prices or policies cannot come from stale recollection. Hearsay does not establish that a paper or report exists.
+Consequential factual claims need sources actually read, with visible supporting citations; for research, the parent opens the primary page and cites URL and read date, labelling anything else 'snippet only'. Judges name real tools, vendors, and benchmarks; well-known names share one grouped caveat, and only genuinely uncertain specifics (prices, rates, counts, dates, obscure vendors) get an inline '(unverified)' unless checked. Important inferences need stated premises. Decisive math needs a calculator/code check. Predictions and brainstorms are hypotheses. Current prices or policies cannot come from stale recollection. Hearsay does not establish that a paper or report exists.
 
 Tool-free judges rely on evidence and calculations supplied by the parent; they cannot claim independent web research or tool verification. Read-only research is allowed only when those tools exist on the selected native route.
 
