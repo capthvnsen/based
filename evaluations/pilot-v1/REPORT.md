@@ -27,4 +27,4 @@ These observations led to additional final-version instructions: check the final
 
 ## Human scoring
 
-Pending. blind.md hides condition labels; answer-key.json maps them, and RUBRIC.md defines scoring and a practical decision rule before any human scores. The author saw the outputs and cannot be described as a blinded scorer. Raw traces intentionally remain available, including weak results. No overall quality winner, unbiasedness, or superiority is claimed.
+Pending. blind.md hides condition labels; the answer key is kept private by the maintainer, and RUBRIC.md defines scoring and a practical decision rule before any human scores. Git history before the commit removing answer-key.json still contains it, so the v1 blind packet is not truly blind. Future rounds should keep the key out of the repository and withhold raw traces from scorers until scoring is saved. The author saw the outputs and cannot be described as a blinded scorer. Raw traces intentionally remain available, including weak results. No overall quality winner, unbiasedness, or superiority is claimed.

@@ -1,6 +1,6 @@
 # Label-blinded scoring packet
 
-See RUBRIC.md before scoring. Synthetic supplied evidence only. Method labels are hidden, but output style may reveal them; this is not guaranteed blinding. Do not inspect answer-key.json until scoring is saved.
+See RUBRIC.md before scoring. Synthetic supplied evidence only. Method labels are hidden, but output style may reveal them; this is not guaranteed blinding. The maintainer keeps the answer key private until scoring is saved. The v1 key remains in earlier git history, so this packet is not truly blind (see REPORT.md).
 
 
 ## cash-not-revenue
