@@ -8,7 +8,9 @@ From the repository root:
 python -m unittest discover -s tests -v
 ```
 
-The current suite passes **27 tests**. Coverage includes metadata, relative links, supporting documents, supplied-evidence shape, fixture arithmetic, tone/reviewer rules, runtime-adapter separation and installer behavior. Installer cases exercise custom paths with spaces, custom runtime homes, runtime validation, explicit destinations, existing-destination refusal, allowlisted payloads, evaluation exclusion and interrupted-install rollback. The new rollback regression was observed failing before the fix.
+Coverage includes required frontmatter fields, allowlisted source existence, relative links resolving within each installed payload, supplied-evidence shape, fixture arithmetic, tone/reviewer concepts, runtime-adapter separation and installer behavior. Contract checks avoid pinning release versions or exact editorial phrases. Installer cases exercise paths with spaces, runtime homes, runtime validation, dry-run without writes, selected-adapter payloads, existing-destination refusal, upgrade backups (including `--force`), uninstall safety, one-line expected errors and rollback for both fresh and upgraded installs.
+
+[CI](.github/workflows/test.yml) runs `python -m unittest discover -s tests` on push and pull requests, on Ubuntu with Python 3.9/3.12 and macOS with Python 3.11/3.12. The macOS minimum differs because the [Actions Python build manifest](https://github.com/actions/python-versions/blob/main/versions-manifest.json) has no current Python 3.9 ARM macOS build. No dependency installation is required.
 
 These are structural/helper/installer tests, not proof an LLM follows instructions. They require no model calls or credentials.
 
@@ -23,11 +25,11 @@ See the [native verification report](evaluations/native-v13/REPORT.md) and [sani
 
 Two actual invocations were inspected per runtime. These are full native workflows, unlike the earlier manually orchestrated CLI component tests. Final synthetic outputs were within their requested word limit. Initial Claude length/provenance defects are retained; the follow-up prompt also changed, so no controlled improvement claim is made.
 
-The exact final runtime payloads match repository hashes. Hermes parsed the additional Claude frontmatter field and discovered `/based` in an isolated skills directory. Claude manual invocation loaded the skill in a fresh project. No global configuration, credentials, or unrelated profile settings were changed; temporary validation profiles used supported authentication fallback without copying auth files. Raw account/session metadata stays outside Git.
+The historical tested runtime payloads matched repository hashes at the time; the current installer selects a smaller payload and rewrites links to omitted documents. Native execution has not been rerun for this installer change. Hermes parsed the additional Claude frontmatter field and discovered `/based` in an isolated skills directory. Claude manual invocation loaded the skill in a fresh project. No global configuration, credentials, or unrelated profile settings were changed; temporary validation profiles used supported authentication fallback without copying auth files. Raw account/session metadata stays outside Git.
 
 ## Installation and invocation limits
 
-The optional `install.py` uses only the standard library, copies the eight allowlisted instruction files, and refuses any existing destination. It does not install another runtime, set up credentials, select a model, edit global settings or copy evaluation traces. Test fresh or custom destinations rather than overwriting real skill installations.
+The optional `install.py` uses only the standard library and requires Python 3.9+. Each runtime receives six files: `SKILL.md`, its selected adapter and four references. The other adapter, `references/evaluation.md` and evaluation traces stay out of the runtime; installed links to omitted documents point to repository pages. Existing destinations require `--upgrade` (alias `--force`), which preserves the previous directory in a timestamped backup before replacement. `--dry-run` previews without creating directories or changing files; `--uninstall` requires a regular `SKILL.md` marker and keeps backups. The installer refuses symlink destinations and replacement/removal of its own source repository. It does not set up credentials, select a model or edit global settings. Tests use temporary directories and simulated filesystem failures rather than modifying real profiles.
 
 On the tested Hermes build, one-shot `-q "/based ..."` does not expand the slash command; use `--skills based` with an explicit request. One-shot child limits must allow a three-judge batch and a later reviewer; the clean test profile explicitly used `oneshot_max_children: 4`. Normal interactive invocation remains `/based ...`.
 
