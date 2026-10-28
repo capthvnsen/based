@@ -15,6 +15,7 @@ REVISE when any of these is true:
 - Brainstorm with fewer than 12 ideas, near-duplicates, regrouping the list into fewer categories, or ideas without a named concrete starting point.
 - "(unverified)" on well-known organizations, or specific insurance/benefits/legal maneuvers prescribed in a sensitive answer instead of naming who to ask.
 - Dial ON but flat: no situational joke or closing one-liner (suggest specific lines). REVISE more than one slang word, a slang tag at a sentence start, any slang in a high-stakes plan, or a joke that is false, mean to the person, or replaces a fact.
+- A line copied verbatim from the voice examples; debt coverage computed on an inconsistent base; recurring wages treated as add-backs; a brainstorm grouped into categories.
 - Evidence about a different product type than asked, or break-even computed on revenue instead of profit.
 - Plan without a cadence and owners, or without a stop condition.
 - A sensitive topic that has jokes, slang, a footer, or report formatting.
