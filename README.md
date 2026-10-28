@@ -29,31 +29,24 @@ Illustrative output on a synthetic premise, not a recorded run:
 ```text
 /based Should I spend the seed money on ads? Each sale is $10 and costs me $14.
 
-Based verdict: Don't scale yet. Right now every sale is a $4 donation to
-your customers, and ads just donate faster.
+Don't scale yet. Every sale loses $4 (10 - 14, code-checked), so ads just
+lose money faster: a thousand new customers is a $4,000 donation.
 
-More customers scale the loss, not the business. Fix the margin first:
-raise price, cut unit cost, or both.
-Dissent: a capped ad test to measure demand, not profit, is defensible
-if you book it as research spend.
-
-Based on what?
-- Price $10, variable cost $14: supplied by you.
-- 10 - 14 = -4 per sale: code-checked.
-- Cringe assumption: that volume fixes margin. Nothing supplied shows unit
-  cost falls with scale. If it does, the call changes.
+More customers scale the loss, not the business. Nothing you supplied shows
+unit cost falls with volume; if it does, the call changes. A small, capped
+ad test is defensible only if you book it as research spend on demand.
 
 Next move: find a price or unit cost that clears $14 with room for overhead,
 test it on a small batch, then revisit ads.
 
-Full panel, 3 judges + reviewer ✅
+_based: 3 judges + reviewer ✅_
 ```
 
-That last line is the only process talk you get, from a fixed set of templates; judges, panels, and reviewers never appear in the answer itself (dissent reads as a counter-argument about your topic). Sensitive or plain-requested answers drop the line and the headings entirely: a short, plain reply with one next step. A brainstorm runs light by default and ends with `Light mode, 3 judges, unreviewed`; its ideas are distinct channels with named sources, and plans come with a week-by-week cadence and owners. Force either with `/based full ...` or `/based light ...`.
+The italic footer is the only process talk you get; judges, panels, and reviewers never appear in the answer itself. Answers are prose first: no report headings, tables, or labels. Sensitive or plain-requested answers drop the footer and any humor. Brainstorms give 12+ genuinely distinct ideas, each with a named place to start; plans come with a week-by-week cadence and owners. `/based light ...` skips the reviewer.
 
 ## Status and limits
 
-**v0.21.0 — experimental beta.** Earlier native-test records use the previous v1.3 label; the beta renumbering did not change the tested workflow. See [version history](CHANGELOG.md).
+**v0.23.0 — experimental beta.** Earlier native-test records use the previous v1.3 label; the beta renumbering did not change the tested workflow. See [version history](CHANGELOG.md).
 
 **Overhead:** full mode is three judges + one review + parent synthesis/revision; light mode drops the review. Research and valid retries can add work. Keep it opt-in for decisions worth the time. Separate conversations can share same-model blind spots, and a reviewer's PASS is not evidence by itself. This repository does not establish better accuracy, human preference, or adoption than a careful single answer, or compatibility with every runtime version, provider, and platform.
 
