@@ -4,7 +4,7 @@ This is an exploratory five-case pilot, not a statistically conclusive study. Al
 
 ## Scoring
 
-Use blind.md without inspecting answer-key.json or raw per-case traces. Someone other than the generating panel should score. Ideally two people score separately; record disagreement rather than silently averaging it away. Method labels are hidden, but response style can reveal the condition, so blinding is imperfect.
+Use blind.md without inspecting the maintainer's private answer key or raw per-case traces. Someone other than the generating panel should score. Ideally two people score separately; record disagreement rather than silently averaging it away. Method labels are hidden, but response style can reveal the condition, so blinding is imperfect. The v1 key was previously public in git history; this packet is not truly blind (see REPORT.md).
 
 For each answer, score each dimension 0 / 1 / 2 (0 = fails, 1 = partial, 2 = good):
 
