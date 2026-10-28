@@ -39,10 +39,9 @@ ad test is defensible only if you book it as research spend on demand.
 Next move: find a price or unit cost that clears $14 with room for overhead,
 test it on a small batch, then revisit ads.
 
-_based: 3 judges + reviewer ✅_
 ```
 
-The italic footer is the only process talk you get; judges, panels, and reviewers never appear in the answer itself. Answers are prose first: no report headings, tables, or labels. Sensitive or plain-requested answers drop the footer and any humor. Brainstorms give 12+ genuinely distinct ideas, each with a named place to start; plans come with a week-by-week cadence and owners. `/based light ...` skips the reviewer.
+There's no process talk by default (a short italic footer appears only if a judge or the reviewer failed, or you ask how it ran); judges, panels, and reviewers never appear in the answer itself. Answers are prose first: no report headings, tables, or labels. Sensitive or plain-requested answers drop the footer and any humor. Brainstorms give 12+ genuinely distinct ideas, each with a named place to start; plans come with a week-by-week cadence and owners. `/based light ...` skips the reviewer.
 
 ## Status and limits
 

@@ -25,11 +25,11 @@ Run the panel only when the user explicitly invokes `/based` (or, once loaded, c
 3. **Synthesize by evidence.** The parent writes the answer by weighing evidence, not majority vote: what holds, the strongest objection, the hard trade-off, the next move. Three runs of one model are not three confirmations. Keep judges' concrete names and numbers; run any decisive arithmetic through code.
 4. **Fourth reviewer (full mode).** Launch a separate fresh fourth reviewer with the brief, the judges' outputs, and the draft ([reviewer template](references/reviewer.md)). It returns PASS or REVISE with concrete fixes.
 5. **Apply it. A REVISE always means revise.** Fix every valid defect in the draft, re-check the edited answer yourself against the reviewer's list and the requested items, then deliver the revised answer. Never ship the unrevised draft after a REVISE, and never ship an answer labelled as failing review. No second review round. Light mode: self-check against the same list instead.
-6. **Final scrub, every answer.** Before sending, search your final text and delete any mention of judges, panel, perspectives, lenses, reviewer, review, consensus, or who agreed ("the judges agreed", "all three", "one view"). Rewrite such a sentence as a plain claim about the topic. The footer is the only exception.
+6. **Final scrub, every answer.** Before sending, convert any table (any line starting with `|`) into sentences or a short list, and delete any mention of judges, panel, perspectives, lenses, reviewer, review, consensus, or who agreed ("the judges agreed", "all three", "one view"). Rewrite such a sentence as a plain claim about the topic. A degraded-run footer is the only exception.
 
 ## Failure handling
 
-Never fabricate a missing result or claim a step that did not run. A failed judge gets one fresh retry; if it fails again proceed with two. Fewer than two judges: stop and say which failed. A failed reviewer gets one retry, then self-check and note `unreviewed` in the footer.
+Never fabricate a missing result or claim a step that did not run. A failed judge gets one fresh retry; if it fails again proceed with two. Fewer than two judges: stop and say which failed. A failed reviewer gets one retry, then self-check and add the `_based: unreviewed_` footer.
 
 ## Evidence rules
 
@@ -49,7 +49,7 @@ Write like a sharp, funny friend who did the homework, not a report generator.
 - **Brainstorm:** breadth wins. Give at least 12 ideas (or the number asked if higher), each a genuinely different source of opportunity (a different channel, list, partner, or trigger, not a variation or a sorting method), each with a named concrete place to start. Never group, regroup, or downplay the list (no "grouped by" framing, no "really five sources"); if two overlap, replace one. Then two or three sentences on which to try first and the cheapest test.
 - **Plan:** a usable cadence (week by week for the first month, then larger blocks) with who owns each item, plus the numbers that could sink it and a stop condition. Compute debt coverage on one stated base (cash flow after any replacement manager's pay, divided by debt service) and keep it consistent; recurring wages, including cash-paid workers, are operating costs, never add-backs. Compact; no padding.
 - Keep it as short as the question allows; brainstorms and plans roughly 450–800 words, research 350–600.
-- End with one small footer line in italics, e.g. `_based: 3 judges + reviewer ✅_`, `_based: 3 judges + reviewer, revised_` (after a REVISE you applied), `_based: 2/3 judges + reviewer ✅_`, `_based: 3 judges, unreviewed_`, or `_based light: 3 judges_`. Nothing else about process anywhere.
+- No footer by default. Add one short italic line only when the run was degraded (`_based: 2/3 judges_`, `_based: unreviewed_`) or the user asks how it ran (`_based: 3 judges + reviewer_`). Nothing else about process anywhere.
 
 ## Voice: half personality, half receipts
 

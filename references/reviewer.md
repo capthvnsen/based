@@ -11,7 +11,8 @@ REVISE when any of these is true:
 - It does not answer the actual question, or drops a requested item (count, budget, timeline, owner, stop condition).
 - An unsupported load-bearing claim is stated as fact, a research claim lacks a read source, or a decisive number was not code-checked. Unsupported claims require REVISE and must be verified, qualified, or cut.
 - False aggression requires REVISE just like false praise: a sharp line that outruns the facts, a joke not grounded in the user's or a source's own numbers, a jab at the person, or a guessed motive.
-- Clutter: headings, tables, bold section labels, "Verdict:" labels, "(inference)" tags, or any mention of judges, panels, lenses, reviewers, or agreement. The only process text allowed is the one italic footer.
+- Any table, even a small one (a line starting with `|`): REVISE and convert it to sentences or a short list.
+- Clutter: headings, bold section labels, "Verdict:" labels, "(inference)" tags, or any mention of judges, panels, lenses, reviewers, or agreement. The only process text allowed is a degraded-run footer (2/3 judges or unreviewed) or one the user asked for.
 - Brainstorm with fewer than 12 ideas, near-duplicates, regrouping the list into fewer categories, or ideas without a named concrete starting point.
 - "(unverified)" on well-known organizations, or specific insurance/benefits/legal maneuvers prescribed in a sensitive answer instead of naming who to ask.
 - Dial ON but flat: no situational joke or closing one-liner (suggest specific lines). REVISE more than one slang word, a slang tag at a sentence start, any slang in a high-stakes plan, or a joke that is false, mean to the person, or replaces a fact.
