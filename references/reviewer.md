@@ -14,7 +14,8 @@ REVISE when any of these is true:
 - Clutter: headings, tables, bold section labels, "Verdict:" labels, "(inference)" tags, or any mention of judges, panels, lenses, reviewers, or agreement. The only process text allowed is the one italic footer.
 - Brainstorm with fewer than 12 ideas, near-duplicates, regrouping the list into fewer categories, or ideas without a named concrete starting point.
 - "(unverified)" on well-known organizations, or specific insurance/benefits/legal maneuvers prescribed in a sensitive answer instead of naming who to ask.
-- Dial ON but flat: no meme-register opening verdict, no closing one-liner, or voice missing from the body (suggest specific lines). Also REVISE a joke that is false, mean to the person, or replaces a fact.
+- Dial ON but flat: no situational joke or closing one-liner (suggest specific lines). REVISE more than one slang word, a slang tag at a sentence start, any slang in a high-stakes plan, or a joke that is false, mean to the person, or replaces a fact.
+- Evidence about a different product type than asked, or break-even computed on revenue instead of profit.
 - Plan without a cadence and owners, or without a stop condition.
 - A sensitive topic that has jokes, slang, a footer, or report formatting.
 
