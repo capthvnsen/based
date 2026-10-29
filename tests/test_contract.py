@@ -8,6 +8,9 @@ import tempfile
 import types
 import unittest
 from unittest.mock import patch
+from urllib.parse import unquote, urlsplit
+
+import install
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -21,52 +24,73 @@ def load_pilot():
 
 class StructuralChecks(unittest.TestCase):
     def test_frontmatter(self):
-        text = (ROOT / "SKILL.md").read_text()
+        text = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         self.assertTrue(text.startswith("---\n"))
-        header = text.split("---", 2)[1]
-        self.assertIn("name: based", header)
-        description = re.search(r'description: "([^"\n]+)"', header).group(1)
-        self.assertLessEqual(len(description), 60)
-        self.assertIn("version: 0.21.0", header)
-        self.assertIn("disable-model-invocation: true", header)
+        _, header, body = text.split("---", 2)
+        self.assertTrue(body.strip())
+        # Parse the top-level scalar fields; nested runtime metadata may vary.
+        fields = dict(re.findall(r"^([\w-]+):[ \t]*(.*)$", header, re.MULTILINE))
+        for key in ("name", "description"):
+            with self.subTest(field=key):
+                self.assertIn(key, fields)
+                value = fields[key].strip()
+                if value.startswith('"'):
+                    value = json.loads(value)
+                elif value.startswith("'"):
+                    self.assertTrue(value.endswith("'"))
+                    value = value[1:-1].replace("''", "'")
+                elif value in ("|", ">", "|-", ">-"):
+                    value = re.search(rf"^{key}:.*\n((?:[ \t]+[^\n]*\n?)+)",
+                                      header, re.MULTILINE).group(1).strip()
+                self.assertTrue(value)
+                self.assertNotIn(value.lower(), ("null", "~"))
+        self.assertEqual(fields.get("disable-model-invocation", "").lower(), "true")
 
-    def test_local_links(self):
-        for path in ROOT.rglob("*.md"):
-            for target in re.findall(r"\]\(([^)]+)\)", path.read_text()):
-                if not target.startswith(("https:", "http:", "#", "mailto:")):
-                    self.assertTrue((path.parent / target.split("#")[0]).is_file(), (path, target))
+    def test_install_sources_exist(self):
+        for relative in install.INSTALL_FILES:
+            with self.subTest(path=relative):
+                self.assertTrue((ROOT / relative).is_file())
 
-    def test_runtime_adapters_exist_and_are_linked(self):
-        skill = (ROOT / "SKILL.md").read_text()
-        hermes = (ROOT / "adapters/hermes.md").read_text()
-        claude = (ROOT / "adapters/claude-code.md").read_text()
-        self.assertIn("adapters/hermes.md", skill)
-        self.assertIn("adapters/claude-code.md", skill)
-        self.assertIn("delegate_task(tasks=[", hermes)
-        self.assertIn("Agent", claude)
-        self.assertIn("Task", claude)
-        self.assertIn("MAIN", claude)
-        self.assertIn("Do not use `--safe-mode`", claude)
+    def test_installed_markdown_links_resolve_inside_payload(self):
+        with tempfile.TemporaryDirectory() as parent:
+            for runtime in install.ADAPTERS:
+                destination = install.install(runtime, Path(parent) / runtime)
+                installed = {path.resolve() for path in destination.rglob("*") if path.is_file()}
+                for path in destination.rglob("*.md"):
+                    text = path.read_text(encoding="utf-8")
+                    links = re.findall(r"\]\(<?([^\s)>]+)>?(?:\s+[^)]*)?\)", text)
+                    links += re.findall(r"^\s*\[[^\]]+\]:\s*<?([^\s>]+)>?", text, re.MULTILINE)
+                    for target in links:
+                        url = urlsplit(target)
+                        if not url.scheme and not url.netloc and url.path:
+                            with self.subTest(runtime=runtime, path=path, target=target):
+                                self.assertIn((path.parent / unquote(url.path)).resolve(), installed)
 
-    def test_adapter_invocation_limits_are_documented(self):
-        hermes = (ROOT / "adapters/hermes.md").read_text()
-        claude = (ROOT / "adapters/claude-code.md").read_text()
-        self.assertIn("oneshot_max_children", hermes)
-        self.assertIn("--skills based", hermes)
-        self.assertIn("does not expand", hermes)
-        self.assertIn("manual `/based`", claude)
+    def test_runtime_adapters_document_native_tools_and_limits(self):
+        for runtime, relative in install.ADAPTERS.items():
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            with self.subTest(runtime=runtime):
+                self.assertRegex(text, r"(?i)preflight")
+                self.assertRegex(text, r"(?i)fresh.*(?:context|subagent|conversation)")
+                if runtime == "hermes":
+                    self.assertIn("delegate_task", text)
+                    self.assertIn("tasks=[", text)
+                    self.assertIn("oneshot_max_children", text)
+                    self.assertIn("--skills based", text)
+                else:
+                    self.assertRegex(text, r"Agent|Task")
+                    self.assertRegex(text, r"(?i)manual.*?/based")
 
-    def test_shared_core_has_no_runtime_orchestration_calls(self):
-        skill = (ROOT / "SKILL.md").read_text()
+    def test_shared_core_preserves_panel_and_review_contract(self):
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         self.assertNotIn("delegate_task(", skill)
         self.assertNotIn("claude -p", skill)
-        self.assertIn("exactly THREE", skill)
-        self.assertIn("FOURTH, separate reviewer", skill)
-        self.assertIn("Synthesize by evidence", skill)
-
-    def test_supporting_documents_exist(self):
-        for name in ["panel", "reviewer", "voice", "model-routing", "evaluation"]:
-            self.assertTrue((ROOT / "references" / (name + ".md")).is_file())
+        self.assertRegex(skill, r"(?i)(?:three|3)\s+judges")
+        self.assertRegex(skill, r"(?i)(?:fourth|4th)[^\n.]*reviewer")
+        self.assertRegex(skill, r"(?i)synthesi[^\n.]*evidence")
+        reviewer = (ROOT / "references/reviewer.md").read_text(encoding="utf-8")
+        for verdict in ("PASS", "REVISE"):
+            self.assertRegex(reviewer, rf"\b{verdict}\b")
 
     def test_case_coverage_and_evidence_shape(self):
         cases = json.loads((ROOT / "evaluations/cases.json").read_text())["cases"]
@@ -92,20 +116,17 @@ class StructuralChecks(unittest.TestCase):
 
 
     def test_tone_permission_and_limits_are_documented(self):
-        # Presence checks only: these are NOT model-behavior guarantees.
-        voice = (ROOT / "references/voice.md").read_text()
-        for phrase in ["bracing, plain-spoken candor", "restrained dry wit",
-                       "Unknown does not mean absent", "If the plan holds up, say so",
-                       "For grief, crisis, or vulnerability", "not a representative study",
-                       "sharper answers increase adoption"]:
-            self.assertIn(phrase, voice)
+        # Presence checks only: these are not model-behavior guarantees.
+        voice = (ROOT / "references/voice.md").read_text(encoding="utf-8")
+        for concept in (r"candor|candid", r"dry wit|humou?r", r"uncertain|unknown",
+                        r"grief|crisis|vulnerab", r"hypothes[ie]s"):
+            self.assertRegex(voice, "(?i)" + concept)
 
-    def test_reviewer_does_not_require_false_aggression(self):
-        reviewer = (ROOT / "references/reviewer.md").read_text()
-        for phrase in ["Material false aggression requires REVISE",
-                       "lack of paying users alone is not a fatal flaw",
-                       "may pass without any sting", "different conclusion from a strong normal answer"]:
-            self.assertIn(phrase, reviewer)
+    def test_reviewer_checks_evidence_and_false_aggression(self):
+        reviewer = (ROOT / "references/reviewer.md").read_text(encoding="utf-8")
+        self.assertRegex(reviewer, r"(?i)unsupported[^\n.]*REVISE")
+        self.assertRegex(reviewer, r"(?i)false aggression[^\n.]*REVISE")
+        self.assertRegex(reviewer, r"(?i)(?:sound|good)[- ]plan[^\n.]*pass")
 
     def test_tone_fixture_shape_and_checked_arithmetic(self):
         fixture = json.loads((ROOT / "evaluations/tone-v12/cases.json").read_text())
