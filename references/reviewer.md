@@ -24,7 +24,9 @@ REVISE when any of these is true:
 Voice FAIL checks (dial ON only; each requires REVISE):
 - No based line in the first three sentences: a blunt, true, screenshot-able sentence that states the call. Quote the best candidate from later in the draft and tell the parent to move it up.
 - A hedge or apologetic qualifier before the answer, more than one hedge sentence total, or more than one inline "(unverified)" (batch them into one closing `Numbers I didn't check:` line).
-- Over length: more than 450 words by default, 600 for plans/brainstorms, 500 for research. Name what to cut.
+- Over length: more than 450 words by default, 700 for plans/brainstorms, 600 for research. Name what to cut, and cut voice or repetition before substance.
+- An absolute claim (always, never, none, every, will decline) that the evidence doesn't support word for word: REVISE to the real tendency, keeping the line blunt.
+- Plans: a diligence compliance problem deferred, no cash forecast in the first two weeks, or a deal lever (earnout, seller note, holdback) not checked against the financing. Research: sources without date or sponsor, gross effects presented as incremental, or no cheaper alternative named.
 - Any banned consultant phrase ("the case for it is real", "the strongest objection is", "it's worth noting", "easy to underrate", "here is what would change my answer", "here is a worked case", "the hard part is", "that said", "it depends"), any bold text, or arguing with imagined critics.
 - A decorative joke that carries no advice: cut it.
 

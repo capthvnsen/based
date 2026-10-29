@@ -4,6 +4,7 @@ Version labels describe the skill's instruction revisions. Evaluation directory 
 
 ## Unreleased
 
+- v0.26.1 (v10b) after v10 lost planning and research on usefulness in a blind A/B: bluntness without absolutes; diligence compliance fixed on discovery; cash forecast in the first two weeks; deal levers checked against financing (SBA earnout limits); research names source dates, sponsors, incremental vs gross effect, and a cheaper alternative; plans/brainstorms up to 700 words, research up to 600; cut voice before substance.
 - v0.26.0 voice v10 after comparing v9 outputs against posts labeled "based" on X: the based line moves into the first three sentences; premise turn-backs; one hedge after the answer with unchecked numbers batched into one closing line; word targets 250–450 (plans/brainstorms ≤600, research ≤500); humor only from load-bearing blunt truths; banned consultant phrases; unbothered rule; no bold anywhere. The reviewer gains voice FAIL checks and may not fix a REVISE by adding caveats or length. Accuracy rules unchanged.
 - Install only the selected runtime adapter and four runtime references; keep evaluation guidance in the repository. Installed links to omitted documents point back to the repository.
 - Add dry-run previews, explicit upgrades with timestamped backups (`--force` aliases `--upgrade`), uninstall, and concise expected-error messages.
