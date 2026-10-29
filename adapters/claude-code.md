@@ -16,6 +16,8 @@ From the MAIN session, launch exactly three native subagent calls (light mode: t
 
 Collect the real outputs before parent synthesis. Handle a failed, timed-out, errored, or missing subagent (judge or reviewer) per [Failure handling](../SKILL.md#failure-handling); never fabricate a replacement.
 
+Do not start background monitors or timers to watch judges; wait on the tool results directly. If a late task notification or timeout arrives after you have drafted or delivered the answer, your reply to it must be the complete final answer again, never a status note (in non-interactive `claude -p` runs the last message is the only output).
+
 ## Parent synthesis and fourth review
 
 The MAIN session synthesizes the results. In full mode only, after drafting, launch a fourth fresh native subagent from the MAIN session with the neutral brief, checked evidence, three judge outputs, and draft. It must be a separate call, not one of the original judges, and must not launch another panel. Apply the review and recheck the final edited answer. Light mode skips the reviewer; the parent self-checks against the claim ledger.

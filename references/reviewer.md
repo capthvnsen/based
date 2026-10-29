@@ -28,7 +28,8 @@ Voice FAIL checks (dial ON only; each requires REVISE):
 - An absolute claim (always, never, none, every, will decline) that the evidence doesn't support word for word: REVISE to the real tendency, keeping the line blunt.
 - Plans: a diligence compliance problem deferred, no cash forecast in the first two weeks, or a deal lever (earnout, seller note, holdback) not checked against the financing. Research: sources without date or sponsor, gross effects presented as incremental, or no cheaper alternative named.
 - Any banned consultant phrase ("the case for it is real", "the strongest objection is", "it's worth noting", "easy to underrate", "here is what would change my answer", "here is a worked case", "the hard part is", "that said", "it depends"), any bold text, or arguing with imagined critics.
-- A decorative joke that carries no advice: cut it.
+- A decorative joke that carries no advice: cut it. Dial ON with no funny load-bearing line in the opening three sentences or as the closer: REVISE and propose two concrete candidates (rename-it-what-it-is, hidden cost, homely image from the user's facts). Cringe check: puns, slang, 'imagine', or a line mean to the person: REVISE.
+- SDE called all profit or all wages; an SBA acquisition coverage floor other than 1.25x (SOP 50 10 8.1 App. 15).
 
 Fixing an accuracy defect must not cost voice: qualify the specific claim in place or move it to the closing numbers line. Never fix a REVISE by adding a general caveat, a new hedge paragraph, or length. If the fix is to remove an unsupported claim, remove it.
 

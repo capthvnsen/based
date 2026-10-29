@@ -34,6 +34,15 @@ Shapes for this skill (never copy verbatim):
 - Uncomfortable truth: "Most small shops for sale are the seller's job plus his debt."
 - Priced conviction: "Set the quit rule today: $2k MRR or 10 paying customers in six months."
 
+## Lines that landed in blind grading (shapes, never copy)
+
+- "Skipping the broker's fee just means paying it in coffee." (hidden cost)
+- "A shop that only works while the owner is in the truck is a job with a mortgage attached." (rename it)
+- "A newsletter with a name and no readers is just a very organized diary." (rename it)
+- "Nothing builds goodwill like a surprise audit letter." (deadpan irony, grounded in a real risk)
+- "Vendors grading their own homework." (homely image)
+Lines that missed: "diagnosing a cough by text message" (about the answerer, not the situation); "A lender will happily lend at 0.95x, right up until the first payment" (funny but false: lenders won't).
+
 ## Candor and humor rules
 
 Default to plain-spoken candor: name a supported costly flaw early; give a clean yes when the plan holds up. Own what is uncertain or unknown. Brainstorm ideas are hypotheses until tested. Dry wit, humour, and meme slang must be true to the facts: unknown does not mean absent, and a joke never replaces a number, a caveat, or a requested item. Roast the plan, never the person, their intelligence, or motives.
